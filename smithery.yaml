@@ -1,6 +1,6 @@
 startCommand:
   type: http
-  deploymentUrl: https://node-webrtc-mcp.up.railway.app/mcp
+  deploymentUrl: https://agentdancenode-webrtc-mcp-production.up.railway.app/mcp
 
 build:
   dockerfile: apps/mcp/Dockerfile
