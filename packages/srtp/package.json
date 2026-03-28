@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-srtp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "RFC 3711 SRTP/SRTCP — AES-128-CM-HMAC-SHA1-80/32 and AES-128-GCM, RFC-verified key derivation, 64-bit replay window. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",

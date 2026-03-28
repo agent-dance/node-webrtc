@@ -1,8 +1,15 @@
 {
   "name": "@agentdance/node-webrtc-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MCP server for @agentdance/node-webrtc — lets AI agents discover, evaluate, and get started with the pure-TypeScript WebRTC stack",
-  "keywords": ["mcp", "webrtc", "node", "typescript", "p2p", "ai-agent"],
+  "keywords": [
+    "mcp",
+    "webrtc",
+    "node",
+    "typescript",
+    "p2p",
+    "ai-agent"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/agent-dance/node-webrtc#readme",
   "repository": {
@@ -10,15 +17,26 @@
     "url": "git+https://github.com/agent-dance/node-webrtc.git",
     "directory": "apps/mcp"
   },
-  "bugs": { "url": "https://github.com/agent-dance/node-webrtc/issues" },
-  "engines": { "node": ">=18" },
+  "bugs": {
+    "url": "https://github.com/agent-dance/node-webrtc/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "type": "module",
   "bin": {
     "node-webrtc-mcp": "./dist/index.js"
   },
   "main": "./dist/index.js",
-  "files": ["dist", "src", "README.md"],
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
