@@ -2,7 +2,16 @@
   "name": "@agentdance/node-webrtc-rtp",
   "version": "0.1.0",
   "description": "RFC 3550 RTP/RTCP codec — header encode/decode, CSRC, header extensions, SR/RR/SDES/BYE/NACK/PLI/FIR/REMB. Part of the @agentdance/node-webrtc stack.",
-  "keywords": ["webrtc", "rtp", "rtcp", "rfc3550", "nack", "remb", "typescript", "node"],
+  "keywords": [
+    "webrtc",
+    "rtp",
+    "rtcp",
+    "rfc3550",
+    "nack",
+    "remb",
+    "typescript",
+    "node"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/agent-dance/node-webrtc#readme",
   "repository": {
@@ -10,8 +19,12 @@
     "url": "git+https://github.com/agent-dance/node-webrtc.git",
     "directory": "packages/rtp"
   },
-  "bugs": { "url": "https://github.com/agent-dance/node-webrtc/issues" },
-  "engines": { "node": ">=18" },
+  "bugs": {
+    "url": "https://github.com/agent-dance/node-webrtc/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,9 +34,16 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist", "src"],
+  "files": [
+    "README.md",
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
@@ -31,5 +51,9 @@
     "clean": "rm -rf dist",
     "prepublishOnly": "pnpm build"
   },
-  "devDependencies": { "typescript": "*", "vitest": "*", "@types/node": "*" }
+  "devDependencies": {
+    "typescript": "*",
+    "vitest": "*",
+    "@types/node": "*"
+  }
 }
