@@ -23,7 +23,7 @@ import {
   decodeUsername,
   decodePriority,
 } from '@agentdance/node-webrtc-stun';
-import type { StunMessage } from '@agentdance/node-webrtc-stun';
+import type { StunMessage, StunAttribute } from '@agentdance/node-webrtc-stun';
 import {
   computeFingerprint,
 } from '@agentdance/node-webrtc-stun';
@@ -551,7 +551,7 @@ export class IceAgent extends EventEmitter {
     const { pair, useCandidate } = entry;
 
     if (msg.messageClass === MessageClass.ErrorResponse) {
-      const errAttr = msg.attributes.find(a => a.type === 0x0009);
+      const errAttr = msg.attributes.find((a: StunAttribute) => a.type === 0x0009);
       const errCode = errAttr ? errAttr.value.readUInt8(3) + (errAttr.value.readUInt8(2) & 0x7) * 100 : 0;
       console.log(`[ICE] error response for ${pair.local.address} -> ${pair.remote.address}:${pair.remote.port} code=${errCode}`);
       pair.state = CandidatePairState.Failed;
@@ -570,7 +570,7 @@ export class IceAgent extends EventEmitter {
     // The XOR-MAPPED-ADDRESS tells us our own address as seen by the remote.
     // If it differs from any known local candidate, add a prflx local candidate.
     const xorAttr = msg.attributes.find(
-      (a) => a.type === AttributeType.XorMappedAddress,
+      (a: StunAttribute) => a.type === AttributeType.XorMappedAddress,
     );
     if (xorAttr) {
       try {
@@ -667,7 +667,7 @@ export class IceAgent extends EventEmitter {
 
     // Verify USERNAME
     const usernameAttr = msg.attributes.find(
-      (a) => a.type === AttributeType.Username,
+      (a: StunAttribute) => a.type === AttributeType.Username,
     );
     if (!usernameAttr) {
       this._sendError(msg, 400, 'Bad Request', rinfo);
@@ -683,7 +683,7 @@ export class IceAgent extends EventEmitter {
     }
 
     const useCandidate = msg.attributes.some(
-      (a) => a.type === AttributeType.UseCandidate,
+      (a: StunAttribute) => a.type === AttributeType.UseCandidate,
     );
 
     // Send success response
@@ -704,7 +704,7 @@ export class IceAgent extends EventEmitter {
 
     if (!remoteCandidate) {
       const priorityAttr = msg.attributes.find(
-        (a) => a.type === AttributeType.Priority,
+        (a: StunAttribute) => a.type === AttributeType.Priority,
       );
       const prflxPriority = priorityAttr
         ? decodePriority(priorityAttr.value)

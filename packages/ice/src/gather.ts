@@ -9,6 +9,7 @@ import {
   isStunMessage,
   decodeXorMappedAddress,
 } from '@agentdance/node-webrtc-stun';
+import type { StunAttribute } from '@agentdance/node-webrtc-stun';
 import { computeFoundation, computePriority } from './candidate.js';
 import type { IceCandidate, TransportProtocol } from './types.js';
 
@@ -173,7 +174,7 @@ export async function gatherSrflxCandidate(
 
       // Extract XOR-MAPPED-ADDRESS
       const xorAttr = decoded.attributes.find(
-        (a) => a.type === AttributeType.XorMappedAddress,
+        (a: StunAttribute) => a.type === AttributeType.XorMappedAddress,
       );
       if (!xorAttr) {
         resolve(null);
