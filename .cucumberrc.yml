@@ -1,0 +1,6 @@
+default: true
+format: progress-bar
+paths: features/**/*.feature
+require-module: ts-node/esm
+require: features/**/*.steps.ts
+world-parameters: {}

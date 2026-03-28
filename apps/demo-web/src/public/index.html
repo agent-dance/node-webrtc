@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ts-rtc P2P Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f23; color: #ccc; min-height: 100vh; padding: 20px; }
+    h1 { color: #58a6ff; margin-bottom: 8px; }
+    .subtitle { color: #8b949e; margin-bottom: 24px; }
+    .status-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding: 12px 16px; background: #161b22; border-radius: 8px; border: 1px solid #30363d; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.connected { background: #3fb950; box-shadow: 0 0 6px #3fb950; }
+    .dot.connecting { background: #d29922; animation: pulse 1s infinite; }
+    .dot.new, .dot.disconnected { background: #6e7681; }
+    .dot.failed { background: #f85149; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+    .card h2 { color: #58a6ff; margin-bottom: 12px; font-size: 1rem; }
+    .nav { display: flex; gap: 8px; margin-bottom: 20px; }
+    .nav a { color: #58a6ff; text-decoration: none; padding: 6px 12px; background: #21262d; border-radius: 6px; font-size: 0.85rem; }
+    .nav a:hover { background: #30363d; }
+    .stat { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .stat .label { color: #8b949e; font-size: 0.85rem; }
+    .stat .value { color: #e6edf3; font-size: 0.85rem; font-weight: 600; }
+    .progress-bar { height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #1f6feb, #58a6ff); transition: width 0.3s; border-radius: 3px; }
+    .ok { color: #3fb950; }
+    .fail { color: #f85149; }
+    .pending { color: #d29922; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    td, th { padding: 4px 8px; text-align: left; border-bottom: 1px solid #21262d; }
+    th { color: #8b949e; font-weight: 500; }
+    .snake-grid { font-family: monospace; font-size: 10px; line-height: 1; white-space: pre; }
+  </style>
+</head>
+<body>
+  <h1>🔗 ts-rtc P2P Demo</h1>
+  <p class="subtitle">Node.js (ts-rtc) ↔ Flutter (flutter_webrtc) — Real-time P2P Validation</p>
+
+  <div class="nav">
+    <a href="/">Overview</a>
+    <a href="/scenario1.html">📁 Multi-File</a>
+    <a href="/scenario2.html">📦 500MB</a>
+    <a href="/scenario3.html">🐍 Snake</a>
+    <a href="/scenario4.html">🎥 Video</a>
+  </div>
+
+  <div class="status-bar">
+    <div class="dot" id="conn-dot"></div>
+    <span id="conn-label">Connecting...</span>
+    <span style="margin-left:auto; color: #8b949e; font-size:0.8rem" id="peer-id"></span>
+  </div>
+
+  <div class="grid">
+    <!-- Scenario 1 -->
+    <div class="card">
+      <h2>📁 Scenario 1: Multi-File Concurrent</h2>
+      <div class="stat"><span class="label">Progress</span><span class="value" id="s1-progress">0 / 0</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="s1-bar" style="width:0%"></div></div>
+      <table id="s1-table">
+        <tr><th>File</th><th>Size</th><th>Sent</th><th>SHA-256</th></tr>
+      </table>
+    </div>
+
+    <!-- Scenario 2 -->
+    <div class="card">
+      <h2>📦 Scenario 2: 500 MB Large File</h2>
+      <div class="stat"><span class="label">Bytes Sent</span><span class="value" id="s2-sent">0 MB</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="s2-bar" style="width:0%"></div></div>
+      <div class="stat"><span class="label">Speed</span><span class="value" id="s2-speed">—</span></div>
+      <div class="stat"><span class="label">Verification</span><span class="value" id="s2-verify">—</span></div>
+    </div>
+
+    <!-- Scenario 3 -->
+    <div class="card">
+      <h2>🐍 Scenario 3: Snake Game</h2>
+      <div class="stat"><span class="label">Tick</span><span class="value" id="s3-tick">0</span></div>
+      <div class="stat"><span class="label">Score</span><span class="value" id="s3-score">0</span></div>
+      <div class="stat"><span class="label">Ping</span><span class="value" id="s3-ping">—</span></div>
+      <div class="stat"><span class="label">Status</span><span class="value" id="s3-status">Waiting</span></div>
+    </div>
+
+    <!-- Scenario 4 -->
+    <div class="card">
+      <h2>🎥 Scenario 4: Video Stream</h2>
+      <div class="stat"><span class="label">Frames Sent</span><span class="value" id="s4-frames">0</span></div>
+      <div class="stat"><span class="label">Frames Dropped</span><span class="value" id="s4-dropped">0</span></div>
+      <div class="stat"><span class="label">FPS</span><span class="value" id="s4-fps">0</span></div>
+    </div>
+  </div>
+
+  <script>
+    const sse = new EventSource('/api/state/stream');
+    sse.onmessage = (e) => {
+      const s = JSON.parse(e.data);
+      updateUI(s);
+    };
+
+    function updateUI(s) {
+      // Connection
+      const dot = document.getElementById('conn-dot');
+      dot.className = 'dot ' + s.connectionState;
+      document.getElementById('conn-label').textContent = 'Connection: ' + s.connectionState;
+      document.getElementById('peer-id').textContent = s.peerId ? 'Peer: ' + s.peerId : '';
+
+      // S1
+      const s1 = s.scenario1;
+      document.getElementById('s1-progress').textContent = s1.completedFiles + ' / ' + s1.totalFiles;
+      const pct1 = s1.totalFiles > 0 ? (s1.completedFiles / s1.totalFiles * 100) : 0;
+      document.getElementById('s1-bar').style.width = pct1 + '%';
+
+      const tbody = document.getElementById('s1-table');
+      tbody.innerHTML = '<tr><th>File</th><th>Size</th><th>Sent</th><th>SHA-256</th></tr>';
+      for (const f of s1.files) {
+        const row = document.createElement('tr');
+        const pct = f.size > 0 ? Math.round(f.bytesSent / f.size * 100) : 0;
+        const verIcon = f.verified === null ? '⏳' : f.verified ? '✅' : '❌';
+        row.innerHTML = `<td>${f.name}</td><td>${(f.size/1024).toFixed(0)}KB</td><td>${pct}%</td><td>${verIcon}</td>`;
+        tbody.appendChild(row);
+      }
+
+      // S2
+      const s2 = s.scenario2;
+      const mb2 = (s2.bytesSent / 1024 / 1024).toFixed(1);
+      const total2 = (s2.totalBytes / 1024 / 1024).toFixed(0);
+      document.getElementById('s2-sent').textContent = mb2 + ' / ' + total2 + ' MB';
+      const pct2 = s2.totalBytes > 0 ? (s2.bytesSent / s2.totalBytes * 100) : 0;
+      document.getElementById('s2-bar').style.width = pct2 + '%';
+      document.getElementById('s2-speed').textContent = s2.speedMBps ? s2.speedMBps.toFixed(2) + ' MB/s' : '—';
+      const ver2 = s2.verified === null ? '—' : s2.verified ? '✅ Match' : '❌ Mismatch';
+      document.getElementById('s2-verify').textContent = ver2;
+
+      // S3
+      const s3 = s.scenario3;
+      document.getElementById('s3-tick').textContent = s3.tick;
+      document.getElementById('s3-score').textContent = JSON.stringify(s3.scores);
+      document.getElementById('s3-ping').textContent = s3.pingMs != null ? s3.pingMs + ' ms' : '—';
+      document.getElementById('s3-status').textContent = s3.gameOver ? '🏁 Game Over' : s3.tick > 0 ? '▶️ Running' : '⏸️ Waiting';
+
+      // S4
+      const s4 = s.scenario4;
+      document.getElementById('s4-frames').textContent = s4.framesSent;
+      document.getElementById('s4-dropped').textContent = s4.framesDropped;
+      document.getElementById('s4-fps').textContent = s4.fps;
+    }
+  </script>
+</body>
+</html>

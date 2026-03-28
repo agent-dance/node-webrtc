@@ -1,0 +1,35 @@
+{
+  "name": "@agentdance/node-webrtc-dtls",
+  "version": "0.1.0",
+  "description": "RFC 6347 DTLS 1.2 transport — full handshake, ECDHE P-256, AES-128-GCM, self-signed cert via pure ASN.1/DER. Part of the @agentdance/node-webrtc stack.",
+  "keywords": ["webrtc", "dtls", "rfc6347", "tls", "ecdhe", "typescript", "node"],
+  "license": "MIT",
+  "homepage": "https://github.com/agent-dance/node-webrtc#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-dance/node-webrtc.git",
+    "directory": "packages/dtls"
+  },
+  "bugs": { "url": "https://github.com/agent-dance/node-webrtc/issues" },
+  "engines": { "node": ">=18" },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "sideEffects": false,
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": { "typescript": "*", "vitest": "*", "@types/node": "*" }
+}

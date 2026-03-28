@@ -1,0 +1,27 @@
+{
+  "name": "ts-rtc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-grade WebRTC implementation in pure TypeScript",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "test:bdd": "cucumber-js",
+    "lint": "eslint packages/*/src",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "eslint": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

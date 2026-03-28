@@ -1,0 +1,44 @@
+{
+  "name": "@agentdance/node-webrtc",
+  "version": "0.1.0",
+  "description": "Production-grade WebRTC in pure TypeScript — RTCPeerConnection, DataChannel, ICE, DTLS, SCTP, SRTP. Zero native bindings.",
+  "keywords": ["webrtc", "rtcpeerconnection", "datachannel", "ice", "dtls", "sctp", "srtp", "p2p", "typescript", "node"],
+  "license": "MIT",
+  "homepage": "https://github.com/agent-dance/node-webrtc#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-dance/node-webrtc.git",
+    "directory": "packages/webrtc"
+  },
+  "bugs": { "url": "https://github.com/agent-dance/node-webrtc/issues" },
+  "engines": { "node": ">=18" },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "sideEffects": false,
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@agentdance/node-webrtc-sdp": "workspace:*",
+    "@agentdance/node-webrtc-ice": "workspace:*",
+    "@agentdance/node-webrtc-dtls": "workspace:*",
+    "@agentdance/node-webrtc-srtp": "workspace:*",
+    "@agentdance/node-webrtc-rtp": "workspace:*",
+    "@agentdance/node-webrtc-sctp": "workspace:*",
+    "@agentdance/node-webrtc-stun": "workspace:*"
+  },
+  "devDependencies": { "typescript": "*", "vitest": "*", "@types/node": "*" }
+}

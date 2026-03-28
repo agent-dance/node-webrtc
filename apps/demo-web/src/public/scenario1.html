@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scenario 1 – Multi-File Transfer</title>
+  <style>
+    body { font-family: monospace; background: #0f0f23; color: #ccc; padding: 20px; }
+    h1 { color: #58a6ff; }
+    a { color: #58a6ff; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; }
+    th { background: #161b22; color: #8b949e; }
+    .ok { color: #3fb950; } .fail { color: #f85149; } .pending { color: #d29922; }
+    .summary { margin-top: 16px; padding: 12px; background: #161b22; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>📁 Scenario 1: Multi-File Concurrent Transfer</h1>
+  <p><a href="/">← Back to overview</a></p>
+
+  <div class="summary">
+    <b>Progress:</b> <span id="progress">0 / 0</span> &nbsp;|&nbsp;
+    <b>Start:</b> <span id="start">—</span> &nbsp;|&nbsp;
+    <b>End:</b> <span id="end">—</span> &nbsp;|&nbsp;
+    <b>Total Time:</b> <span id="duration">—</span>
+  </div>
+
+  <table>
+    <thead><tr><th>ID</th><th>File Name</th><th>Size</th><th>Bytes Sent</th><th>Progress</th><th>SHA-256</th><th>Verified</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    const sse = new EventSource('/api/state/stream');
+    sse.onmessage = (e) => {
+      const s = JSON.parse(e.data).scenario1;
+
+      document.getElementById('progress').textContent = s.completedFiles + ' / ' + s.totalFiles;
+      document.getElementById('start').textContent = s.startTime ? new Date(s.startTime).toLocaleTimeString() : '—';
+      document.getElementById('end').textContent = s.endTime ? new Date(s.endTime).toLocaleTimeString() : '—';
+      if (s.startTime && s.endTime) {
+        document.getElementById('duration').textContent = ((s.endTime - s.startTime) / 1000).toFixed(2) + 's';
+      }
+
+      const tbody = document.getElementById('tbody');
+      tbody.innerHTML = '';
+      for (const f of s.files) {
+        const pct = f.size > 0 ? Math.round(f.bytesSent / f.size * 100) : 0;
+        const verClass = f.verified === null ? 'pending' : f.verified ? 'ok' : 'fail';
+        const verText = f.verified === null ? '⏳ Pending' : f.verified ? '✅ OK' : '❌ FAIL';
+        const row = `<tr>
+          <td style="font-size:0.7rem">${f.id.slice(0,8)}…</td>
+          <td>${f.name}</td>
+          <td>${(f.size/1024).toFixed(1)} KB</td>
+          <td>${(f.bytesSent/1024).toFixed(1)} KB</td>
+          <td>${pct}%</td>
+          <td style="font-size:0.7rem">${f.sha256.slice(0,16)}…</td>
+          <td class="${verClass}">${verText}</td>
+        </tr>`;
+        tbody.insertAdjacentHTML('beforeend', row);
+      }
+    };
+  </script>
+</body>
+</html>

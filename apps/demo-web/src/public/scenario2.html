@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scenario 2 – 500MB Large File</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #0f0f23; color: #ccc; padding: 20px; }
+    h1 { color: #58a6ff; }
+    a { color: #58a6ff; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin-top: 16px; max-width: 600px; }
+    .stat { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .label { color: #8b949e; }
+    .value { color: #e6edf3; font-weight: 600; }
+    .progress-bar { height: 20px; background: #21262d; border-radius: 10px; overflow: hidden; margin: 16px 0; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #1f6feb, #58a6ff); transition: width 0.5s; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: white; font-weight: bold; }
+    .ok { color: #3fb950; } .fail { color: #f85149; }
+    .hash { font-family: monospace; font-size: 0.75rem; word-break: break-all; margin-top: 4px; color: #8b949e; }
+  </style>
+</head>
+<body>
+  <h1>📦 Scenario 2: 500 MB Large File Transfer</h1>
+  <p><a href="/">← Back to overview</a></p>
+
+  <div class="card">
+    <div class="progress-bar">
+      <div class="progress-fill" id="bar" style="width:0%">0%</div>
+    </div>
+    <div class="stat"><span class="label">Bytes Sent</span><span class="value" id="sent">—</span></div>
+    <div class="stat"><span class="label">Transfer Speed</span><span class="value" id="speed">—</span></div>
+    <div class="stat"><span class="label">Elapsed Time</span><span class="value" id="elapsed">—</span></div>
+    <div class="stat"><span class="label">Verification</span><span class="value" id="verify">—</span></div>
+    <div class="stat"><span class="label">Local SHA-256</span></div>
+    <div class="hash" id="sha-local">—</div>
+    <div class="stat" style="margin-top:8px"><span class="label">Remote SHA-256</span></div>
+    <div class="hash" id="sha-remote">—</div>
+  </div>
+
+  <script>
+    const sse = new EventSource('/api/state/stream');
+    sse.onmessage = (e) => {
+      const s = JSON.parse(e.data).scenario2;
+
+      const pct = s.totalBytes > 0 ? Math.round(s.bytesSent / s.totalBytes * 100) : 0;
+      document.getElementById('bar').style.width = pct + '%';
+      document.getElementById('bar').textContent = pct + '%';
+
+      const mb = (s.bytesSent / 1024 / 1024).toFixed(1);
+      const total = (s.totalBytes / 1024 / 1024).toFixed(0);
+      document.getElementById('sent').textContent = `${mb} MB / ${total} MB`;
+      document.getElementById('speed').textContent = s.speedMBps ? s.speedMBps.toFixed(2) + ' MB/s' : '—';
+
+      if (s.startTime) {
+        const elapsed = ((s.endTime ?? Date.now()) - s.startTime) / 1000;
+        document.getElementById('elapsed').textContent = elapsed.toFixed(1) + 's';
+      }
+
+      const verEl = document.getElementById('verify');
+      if (s.verified === null) {
+        verEl.textContent = '⏳ Transferring...';
+        verEl.className = '';
+      } else if (s.verified) {
+        verEl.textContent = '✅ SHA-256 MATCH';
+        verEl.className = 'ok';
+      } else {
+        verEl.textContent = '❌ SHA-256 MISMATCH';
+        verEl.className = 'fail';
+      }
+
+      document.getElementById('sha-local').textContent = s.sha256Local || '—';
+      document.getElementById('sha-remote').textContent = s.sha256Remote || '—';
+    };
+  </script>
+</body>
+</html>

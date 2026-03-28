@@ -1,0 +1,38 @@
+{
+  "name": "@agentdance/node-webrtc-ice",
+  "version": "0.1.0",
+  "description": "RFC 8445 ICE agent — host/srflx/prflx candidates, connectivity checks, nomination. Part of the @agentdance/node-webrtc stack.",
+  "keywords": ["webrtc", "ice", "rfc8445", "stun", "p2p", "typescript", "node"],
+  "license": "MIT",
+  "homepage": "https://github.com/agent-dance/node-webrtc#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-dance/node-webrtc.git",
+    "directory": "packages/ice"
+  },
+  "bugs": { "url": "https://github.com/agent-dance/node-webrtc/issues" },
+  "engines": { "node": ">=18" },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "sideEffects": false,
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@agentdance/node-webrtc-stun": "workspace:*"
+  },
+  "devDependencies": { "typescript": "*", "vitest": "*", "@types/node": "*" }
+}

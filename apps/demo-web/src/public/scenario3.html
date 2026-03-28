@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scenario 3 – Snake Game</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #0f0f23; color: #ccc; padding: 20px; }
+    h1 { color: #58a6ff; }
+    a { color: #58a6ff; }
+    .layout { display: flex; gap: 20px; margin-top: 16px; }
+    canvas { border: 2px solid #30363d; border-radius: 4px; background: #0d1117; }
+    .info { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; min-width: 200px; }
+    .stat { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .label { color: #8b949e; font-size: 0.85rem; }
+    .value { color: #e6edf3; font-weight: 600; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>🐍 Scenario 3: Snake Game (Node.js = Server, Flutter = Client)</h1>
+  <p><a href="/">← Back to overview</a></p>
+
+  <div class="layout">
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div class="info">
+      <div class="stat"><span class="label">Tick</span><span class="value" id="tick">0</span></div>
+      <div class="stat"><span class="label">Score (Flutter)</span><span class="value" id="score">0</span></div>
+      <div class="stat"><span class="label">Ping</span><span class="value" id="ping">—</span></div>
+      <div class="stat"><span class="label">Food</span><span class="value" id="food">—</span></div>
+      <div class="stat"><span class="label">Status</span><span class="value" id="status">Waiting</span></div>
+    </div>
+  </div>
+
+  <script>
+    const GRID = 20;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const cellSize = canvas.width / GRID;
+
+    const sse = new EventSource('/api/state/stream');
+    sse.onmessage = (e) => {
+      const s = JSON.parse(e.data).scenario3;
+      renderGame(s);
+      document.getElementById('tick').textContent = s.tick;
+      document.getElementById('score').textContent = JSON.stringify(s.scores);
+      document.getElementById('ping').textContent = s.pingMs != null ? s.pingMs + ' ms' : '—';
+      document.getElementById('food').textContent = `(${s.food.x}, ${s.food.y})`;
+      document.getElementById('status').textContent = s.gameOver ? '🏁 Game Over' : s.tick > 0 ? '▶️ Running' : '⏸️ Waiting';
+    };
+
+    function renderGame(s) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Grid lines
+      ctx.strokeStyle = '#1c2128';
+      for (let i = 0; i <= GRID; i++) {
+        ctx.beginPath(); ctx.moveTo(i * cellSize, 0); ctx.lineTo(i * cellSize, canvas.height); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, i * cellSize); ctx.lineTo(canvas.width, i * cellSize); ctx.stroke();
+      }
+
+      // Food
+      ctx.fillStyle = '#f85149';
+      ctx.fillRect(s.food.x * cellSize + 2, s.food.y * cellSize + 2, cellSize - 4, cellSize - 4);
+
+      // Snakes
+      const colors = ['#3fb950', '#58a6ff', '#f78166'];
+      s.snakes.forEach((snake, si) => {
+        ctx.fillStyle = snake.alive ? colors[si % colors.length] : '#6e7681';
+        snake.body.forEach((p, pi) => {
+          const alpha = pi === 0 ? 1.0 : 0.7 - pi * 0.02;
+          ctx.globalAlpha = Math.max(0.2, alpha);
+          ctx.fillRect(p.x * cellSize + 1, p.y * cellSize + 1, cellSize - 2, cellSize - 2);
+        });
+        ctx.globalAlpha = 1.0;
+      });
+    }
+  </script>
+</body>
+</html>

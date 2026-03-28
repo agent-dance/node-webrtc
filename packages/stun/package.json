@@ -1,0 +1,35 @@
+{
+  "name": "@agentdance/node-webrtc-stun",
+  "version": "0.1.0",
+  "description": "RFC 5389 STUN message codec + client — HMAC-SHA1 integrity, CRC-32 fingerprint, ICE attributes. Part of the @agentdance/node-webrtc stack.",
+  "keywords": ["webrtc", "stun", "rfc5389", "ice", "hmac", "typescript", "node"],
+  "license": "MIT",
+  "homepage": "https://github.com/agent-dance/node-webrtc#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-dance/node-webrtc.git",
+    "directory": "packages/stun"
+  },
+  "bugs": { "url": "https://github.com/agent-dance/node-webrtc/issues" },
+  "engines": { "node": ">=18" },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "sideEffects": false,
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": { "typescript": "*", "vitest": "*", "@types/node": "*" }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scenario 4 – Video Stream</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #0f0f23; color: #ccc; padding: 20px; }
+    h1 { color: #58a6ff; }
+    a { color: #58a6ff; }
+    .layout { display: flex; gap: 20px; margin-top: 16px; align-items: flex-start; }
+    .info { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; min-width: 220px; }
+    .stat { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .label { color: #8b949e; font-size: 0.85rem; }
+    .value { color: #e6edf3; font-weight: 600; font-size: 0.85rem; }
+    canvas { border: 2px solid #30363d; border-radius: 4px; }
+    .note { margin-top: 12px; color: #8b949e; font-size: 0.8rem; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>🎥 Scenario 4: Simulated Video Stream (HSV Animation)</h1>
+  <p><a href="/">← Back to overview</a></p>
+  <p style="color:#d29922; margin-top:8px">⚠️ The actual video frames are rendered on Flutter. This page shows the server-side stats.</p>
+
+  <div class="layout">
+    <canvas id="preview" width="320" height="240"></canvas>
+    <div class="info">
+      <div class="stat"><span class="label">Frames Sent</span><span class="value" id="frames">0</span></div>
+      <div class="stat"><span class="label">Frames Dropped</span><span class="value" id="dropped">0</span></div>
+      <div class="stat"><span class="label">Current FPS</span><span class="value" id="fps">0</span></div>
+      <div class="stat"><span class="label">Drop Rate</span><span class="value" id="drop-rate">0%</span></div>
+      <p class="note">Target: 30 FPS, 320×240 RGBA<br>Drop threshold: &gt;2 buffered frames</p>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('preview');
+    const ctx = canvas.getContext('2d');
+    let previewFrame = 0;
+
+    // Render a preview of what the stream looks like (approximation)
+    function renderPreview() {
+      const W = 320, H = 240;
+      const imgData = ctx.createImageData(W, H);
+      const hueBase = (previewFrame * 2) % 360;
+      const scanLine = previewFrame % H;
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          const idx = (y * W + x) * 4;
+          const hue = (hueBase + (x + y) * 0.5) % 360;
+          const val = y === scanLine ? 1.0 : 0.6 + 0.2 * Math.sin((x + previewFrame * 3) * 0.05);
+          const [r, g, b] = hsvToRgb(hue, 0.8, val);
+          imgData.data[idx] = r;
+          imgData.data[idx+1] = g;
+          imgData.data[idx+2] = b;
+          imgData.data[idx+3] = 255;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      previewFrame++;
+    }
+    setInterval(renderPreview, 100); // 10fps preview (low CPU)
+
+    function hsvToRgb(h, s, v) {
+      const c = v*s, x = c*(1-Math.abs((h/60)%2-1)), m = v-c;
+      let r=0,g=0,b=0;
+      if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}
+      else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}
+      return [Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];
+    }
+
+    const sse = new EventSource('/api/state/stream');
+    sse.onmessage = (e) => {
+      const s = JSON.parse(e.data).scenario4;
+      document.getElementById('frames').textContent = s.framesSent;
+      document.getElementById('dropped').textContent = s.framesDropped;
+      document.getElementById('fps').textContent = s.fps;
+      const total = s.framesSent + s.framesDropped;
+      const rate = total > 0 ? Math.round(s.framesDropped / total * 100) : 0;
+      document.getElementById('drop-rate').textContent = rate + '%';
+    };
+  </script>
+</body>
+</html>
