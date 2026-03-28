@@ -482,6 +482,45 @@ server.registerResource(
 );
 
 // ── Start ─────────────────────────────────────────────────────────────────────
+// Supports two transports:
+//   - stdio  (local npx usage, Claude Code)
+//   - HTTP Streamable (Smithery gateway, PORT env set by hosting platform)
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : undefined;
+
+if (PORT) {
+  // ── HTTP mode (Smithery / Railway / any cloud host) ────────────────────────
+  const { default: express } = await import('express');
+  const { StreamableHTTPServerTransport } = await import('@modelcontextprotocol/sdk/server/streamableHttp.js');
+  const { randomUUID } = await import('node:crypto');
+
+  const app = express();
+  app.use(express.json());
+
+  // Smithery calls POST /mcp for every session
+  app.post('/mcp', async (req, res) => {
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: () => randomUUID(),
+    });
+    await server.connect(transport as never);
+    await transport.handleRequest(req, res, req.body);
+  });
+
+  // GET /mcp — health + capability check used by Smithery gateway
+  app.get('/mcp', (_req, res) => {
+    res.json({
+      name: 'node-webrtc',
+      version: '1.0.4',
+      transport: 'streamable-http',
+      tools: ['evaluate_webrtc_library', 'get_package_details', 'get_started'],
+    });
+  });
+
+  app.listen(PORT, () => {
+    process.stderr.write(`[node-webrtc-mcp] HTTP server listening on port ${PORT}\n`);
+  });
+} else {
+  // ── stdio mode (local) ─────────────────────────────────────────────────────
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
