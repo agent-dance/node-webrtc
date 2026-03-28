@@ -522,13 +522,32 @@ if (PORT) {
   const app = express();
   app.use(express.json());
 
-  // Smithery calls POST /mcp for every session — each gets its own server instance
+  // Session map: reuse the same transport for the lifetime of each MCP session
+  const sessions = new Map<string, InstanceType<typeof StreamableHTTPServerTransport>>();
+
   app.post('/mcp', async (req, res) => {
-    const server = createMcpServer();
+    const sessionId = req.headers['mcp-session-id'] as string | undefined;
+
+    if (sessionId && sessions.has(sessionId)) {
+      // Existing session — route to the already-connected transport
+      await sessions.get(sessionId)!.handleRequest(req, res, req.body);
+      return;
+    }
+
+    // New session — create a fresh server + transport pair
+    const mcpServer = createMcpServer();
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: () => randomUUID(),
+      onsessioninitialized: (id) => {
+        sessions.set(id, transport);
+      },
     });
-    await server.connect(transport as never);
+    // Clean up on close
+    transport.onclose = () => {
+      const id = (transport as unknown as { sessionId?: string }).sessionId;
+      if (id) sessions.delete(id);
+    };
+    await mcpServer.connect(transport as never);
     await transport.handleRequest(req, res, req.body);
   });
 
