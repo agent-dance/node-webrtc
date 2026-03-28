@@ -1,0 +1,61 @@
+# @agentdance/node-webrtc
+
+> Production-grade WebRTC implementation in pure TypeScript for Node.js — zero native bindings, zero C++ glue.
+
+## Quick Links
+
+- [GitHub Repository](https://github.com/agent-dance/node-webrtc)
+- [npm: @agentdance/node-webrtc](https://www.npmjs.com/package/@agentdance/node-webrtc)
+- [Full README](https://github.com/agent-dance/node-webrtc#readme)
+
+## What This Project Does
+
+A complete, RFC-compliant WebRTC stack for Node.js. Every protocol layer built from scratch in TypeScript:
+
+- [ICE (RFC 8445)](https://github.com/agent-dance/node-webrtc/tree/master/packages/ice) — host/srflx/prflx candidates, connectivity checks, nomination
+- [DTLS 1.2 (RFC 6347)](https://github.com/agent-dance/node-webrtc/tree/master/packages/dtls) — full handshake, ECDHE P-256, AES-128-GCM, self-signed cert
+- [SCTP (RFC 4960/8832)](https://github.com/agent-dance/node-webrtc/tree/master/packages/sctp) — congestion control, DCEP, fragmentation, TSN wrap
+- [SRTP (RFC 3711)](https://github.com/agent-dance/node-webrtc/tree/master/packages/srtp) — AES-128-CM-HMAC-SHA1, AES-128-GCM, replay window
+- [RTP/RTCP (RFC 3550)](https://github.com/agent-dance/node-webrtc/tree/master/packages/rtp) — full codec, all RTCP types
+- [STUN (RFC 5389)](https://github.com/agent-dance/node-webrtc/tree/master/packages/stun) — codec, HMAC-SHA1, fingerprint
+- [SDP (RFC 4566)](https://github.com/agent-dance/node-webrtc/tree/master/packages/sdp) — parse/serialize, Chrome interop
+
+## Key Files for AI Agents
+
+- [README.md](https://github.com/agent-dance/node-webrtc/blob/master/README.md): Full documentation, API reference, all code examples
+- [AGENTS.md](https://github.com/agent-dance/node-webrtc/blob/master/AGENTS.md): Instructions for AI agents working on this codebase
+- [packages/](https://github.com/agent-dance/node-webrtc/tree/master/packages): Source for all 8 protocol packages
+- [features/](https://github.com/agent-dance/node-webrtc/tree/master/features): Cucumber BDD specs — living documentation of all behavior
+
+## MCP Server
+
+This project ships an MCP server that lets AI agents evaluate, explore, and get started with the library programmatically.
+
+- [MCP Server README](https://github.com/agent-dance/node-webrtc/tree/master/apps/mcp)
+- [npm: @agentdance/node-webrtc-mcp](https://www.npmjs.com/package/@agentdance/node-webrtc-mcp)
+
+Configure in Claude Desktop / Claude Code:
+
+```json
+{
+  "mcpServers": {
+    "node-webrtc": {
+      "command": "npx",
+      "args": ["-y", "@agentdance/node-webrtc-mcp"]
+    }
+  }
+}
+```
+
+## Install
+
+```bash
+npm install @agentdance/node-webrtc
+```
+
+## Optional: Full Documentation
+
+- [API Reference](https://github.com/agent-dance/node-webrtc#rtcpeerconnection-api-reference)
+- [DataChannel API](https://github.com/agent-dance/node-webrtc#rtcdatachannel-api-reference)
+- [Lower-Level Packages](https://github.com/agent-dance/node-webrtc#lower-level-package-apis)
+- [Throughput Benchmark](https://github.com/agent-dance/node-webrtc#throughput-benchmark)

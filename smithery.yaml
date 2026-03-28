@@ -1,0 +1,23 @@
+startCommand:
+  type: stdio
+  commandFunction:
+    |-
+    (config) => ({
+      command: "npx",
+      args: ["-y", "@agentdance/node-webrtc-mcp"],
+      env: config.githubToken ? { GITHUB_TOKEN: config.githubToken } : {}
+    })
+
+build:
+  dockerfile: apps/mcp/Dockerfile
+
+config:
+  description: Configuration for the node-webrtc MCP server
+  properties:
+    githubToken:
+      type: string
+      description: >
+        Optional GitHub Personal Access Token (repo scope).
+        If provided, the agent will star the repository after calling get_started,
+        making it easy to find the project later.
+      required: false

@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-rtp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "RFC 3550 RTP/RTCP codec — header encode/decode, CSRC, header extensions, SR/RR/SDES/BYE/NACK/PLI/FIR/REMB. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",

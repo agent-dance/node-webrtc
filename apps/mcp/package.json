@@ -1,13 +1,16 @@
 {
   "name": "@agentdance/node-webrtc-mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MCP server for @agentdance/node-webrtc — lets AI agents discover, evaluate, and get started with the pure-TypeScript WebRTC stack",
   "keywords": [
     "mcp",
+    "model-context-protocol",
+    "mcp-server",
     "webrtc",
     "node",
     "typescript",
     "p2p",
+    "rtcdatachannel",
     "ai-agent"
   ],
   "license": "MIT",
