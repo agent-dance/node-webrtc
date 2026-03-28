@@ -13,8 +13,20 @@ export class RTCStatsReportImpl {
     this._map = map;
   }
 
+  get size(): number {
+    return this._map.size;
+  }
+
   entries(): IterableIterator<[string, RTCStats]> {
     return this._map.entries();
+  }
+
+  keys(): IterableIterator<string> {
+    return this._map.keys();
+  }
+
+  values(): IterableIterator<RTCStats> {
+    return this._map.values();
   }
 
   get(id: string): RTCStats | undefined {

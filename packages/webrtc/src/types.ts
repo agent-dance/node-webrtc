@@ -149,7 +149,10 @@ export interface RTCIceCandidatePairStats extends RTCStats {
 }
 
 export interface RTCStatsReport {
+  readonly size: number;
   entries(): IterableIterator<[string, RTCStats]>;
+  keys(): IterableIterator<string>;
+  values(): IterableIterator<RTCStats>;
   get(id: string): RTCStats | undefined;
   has(id: string): boolean;
   forEach(callbackfn: (value: RTCStats, key: string) => void): void;
