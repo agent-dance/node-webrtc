@@ -49,7 +49,10 @@ jobs:
           node --input-type=module <<EOF
           import { readFileSync, writeFileSync } from 'fs';
           import { readdirSync } from 'fs';
-          const pkgDirs = readdirSync('packages').map(d => \`packages/\${d}/package.json\`);
+          const pkgDirs = [
+            ...readdirSync('packages').map(d => \`packages/\${d}/package.json\`),
+            'apps/mcp/package.json',
+          ];
           for (const f of pkgDirs) {
             try {
               const pkg = JSON.parse(readFileSync(f, 'utf8'));

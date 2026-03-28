@@ -2,3 +2,4 @@ packages:
   - 'packages/*'
   - 'apps/demo-web'
   - 'apps/bench'
+  - 'apps/mcp'
