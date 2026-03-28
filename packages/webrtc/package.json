@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Production-grade WebRTC in pure TypeScript — RTCPeerConnection, DataChannel, ICE, DTLS, SCTP, SRTP. Zero native bindings.",
   "keywords": [
     "webrtc",

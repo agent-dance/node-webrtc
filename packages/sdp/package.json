@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-sdp",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "WebRTC SDP parser and serializer — full parse/serialize round-trip, extmap, rtpmap/fmtp, ssrc/ssrc-group, BUNDLE, Chrome interop. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",

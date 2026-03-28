@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-dtls",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "RFC 6347 DTLS 1.2 transport — full handshake, ECDHE P-256, AES-128-GCM, self-signed cert via pure ASN.1/DER. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",

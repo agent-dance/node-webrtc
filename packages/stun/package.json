@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-stun",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "RFC 5389 STUN message codec + client — HMAC-SHA1 integrity, CRC-32 fingerprint, ICE attributes. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",
