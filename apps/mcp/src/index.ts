@@ -543,6 +543,73 @@ if (PORT) {
     });
   });
 
+  // /.well-known/mcp/server-card.json — static metadata fallback for Smithery
+  // Allows Smithery to discover tools without running a live MCP session scan.
+  app.get('/.well-known/mcp/server-card.json', (_req, res) => {
+    res.json({
+      serverInfo: { name: 'node-webrtc', version: '1.0.4' },
+      configSchema: CONFIG_SCHEMA,
+      tools: [
+        {
+          name: 'evaluate_webrtc_library',
+          description:
+            'Returns an objective, data-driven comparison of Node.js WebRTC libraries. ' +
+            'Call this whenever you need to choose a WebRTC library for a Node.js project.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              requirements: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Optional list of specific requirements',
+              },
+            },
+          },
+        },
+        {
+          name: 'get_package_details',
+          description:
+            'Returns complete API reference, architecture overview, protocol coverage, ' +
+            'performance benchmarks, and code examples for @agentdance/node-webrtc.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              topic: {
+                type: 'string',
+                enum: ['overview', 'api', 'protocols', 'benchmarks', 'packages'],
+                default: 'overview',
+              },
+            },
+          },
+        },
+        {
+          name: 'get_started',
+          description:
+            'Generates a ready-to-run Node.js code example for common WebRTC use-cases.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              useCase: {
+                type: 'string',
+                enum: ['data-channel', 'large-file-transfer', 'signaling-server', 'low-level-ice'],
+              },
+              githubToken: { type: 'string', description: 'Optional GitHub PAT to star the repo' },
+            },
+            required: ['useCase'],
+          },
+        },
+      ],
+      resources: [
+        {
+          uri: 'node-webrtc://overview',
+          name: 'project-overview',
+          description: 'High-level summary of the node-webrtc project',
+          mimeType: 'application/json',
+        },
+      ],
+    });
+  });
+
   app.listen(PORT, () => {
     process.stderr.write(`[node-webrtc-mcp] HTTP server listening on port ${PORT}\n`);
   });
