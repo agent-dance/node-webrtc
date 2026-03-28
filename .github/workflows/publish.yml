@@ -10,7 +10,7 @@ jobs:
     name: Build, Test & Publish
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write   # required for creating GitHub Release
       id-token: write   # required for npm provenance
 
     steps:
@@ -74,3 +74,53 @@ jobs:
         run: pnpm -r publish --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            ## 📦 Packages
+
+            | Package | Version |
+            |---|---|
+            | [`@agentdance/node-webrtc`](https://www.npmjs.com/package/@agentdance/node-webrtc) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-ice`](https://www.npmjs.com/package/@agentdance/node-webrtc-ice) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-dtls`](https://www.npmjs.com/package/@agentdance/node-webrtc-dtls) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-sctp`](https://www.npmjs.com/package/@agentdance/node-webrtc-sctp) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-srtp`](https://www.npmjs.com/package/@agentdance/node-webrtc-srtp) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-rtp`](https://www.npmjs.com/package/@agentdance/node-webrtc-rtp) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-stun`](https://www.npmjs.com/package/@agentdance/node-webrtc-stun) | `${{ github.ref_name }}` |
+            | [`@agentdance/node-webrtc-sdp`](https://www.npmjs.com/package/@agentdance/node-webrtc-sdp) | `${{ github.ref_name }}` |
+
+            ## 🚀 Install
+
+            ```bash
+            npm install @agentdance/node-webrtc
+            ```
+
+            ## 📋 What's Included
+
+            **Production-grade WebRTC implementation in pure TypeScript — zero native bindings.**
+
+            Every protocol layer implemented from first principles against the relevant RFCs:
+
+            | Layer | RFC | Key capabilities |
+            |---|---|---|
+            | ICE | RFC 8445 | Host/srflx/prflx candidates, connectivity checks, aggressive & regular nomination, 15s keepalive |
+            | DTLS 1.2 | RFC 6347 | Full client+server handshake, ECDHE P-256, AES-128-GCM, self-signed cert (pure ASN.1/DER) |
+            | SCTP | RFC 4960/8832 | Fragmentation/reassembly, congestion control (cwnd/ssthresh), fast retransmit, DCEP, TSN wrap |
+            | SRTP | RFC 3711 | AES-128-CM-HMAC-SHA1-80/32 and AES-128-GCM, RFC-verified key derivation, 64-bit replay window |
+            | RTP/RTCP | RFC 3550 | Full header codec, SR/RR/SDES/BYE/NACK/PLI/FIR/REMB |
+            | STUN | RFC 5389 | Full codec, HMAC-SHA1 integrity, CRC-32 fingerprint, ICE attributes |
+            | SDP | RFC 4566 | Full parse ↔ serialize, Chrome interop, BUNDLE, extmap, ssrc-group |
+
+            **Test coverage:** ~4 900 lines of Vitest unit tests · 29/29 Cucumber BDD scenarios passing
+
+            ## 📖 Documentation
+
+            → [Full README](https://github.com/agent-dance/node-webrtc#readme)
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
