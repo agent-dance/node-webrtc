@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-ice",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "RFC 8445 ICE agent — host/srflx/prflx candidates, connectivity checks, nomination. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",

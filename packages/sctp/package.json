@@ -1,6 +1,6 @@
 {
   "name": "@agentdance/node-webrtc-sctp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "RFC 4960/8832 SCTP + DCEP — fragmentation, congestion control, fast retransmit, ordered/unordered delivery, pre-negotiated channels. Part of the @agentdance/node-webrtc stack.",
   "keywords": [
     "webrtc",
