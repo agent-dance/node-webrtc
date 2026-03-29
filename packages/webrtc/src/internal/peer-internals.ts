@@ -59,9 +59,10 @@ export class PeerInternals extends EventEmitter {
     for (const server of config.iceServers ?? []) {
       const urls = Array.isArray(server.urls) ? server.urls : [server.urls];
       for (const url of urls) {
-        const match = url.match(/^stun:(.+):(\d+)$/);
+        // Match stun:host:port or stun:host (default port 3478)
+        const match = url.match(/^stuns?:([^:/?]+)(?::(\d+))?$/);
         if (match) {
-          this._stunServers.push({ host: match[1]!, port: parseInt(match[2]!, 10) });
+          this._stunServers.push({ host: match[1]!, port: match[2] ? parseInt(match[2], 10) : 3478 });
         }
       }
     }
