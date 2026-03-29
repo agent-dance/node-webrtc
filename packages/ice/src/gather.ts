@@ -52,6 +52,20 @@ const VIRTUAL_PREFIXES = [
   'utun',     // macOS utun (WireGuard / built-in VPN)
   'ipsec',
   'ppp',
+  'wg',       // WireGuard
+  'tailscale', // Tailscale VPN
+  'zt',       // ZeroTier
+  'nordlynx', // NordVPN
+];
+
+// Windows network interfaces have human-readable names (often localized) that
+// don't match Unix-style prefixes.  We detect virtual adapters by checking
+// for common VPN/virtual keywords in a case-insensitive match.
+const VIRTUAL_KEYWORDS_CI = [
+  'vpn', 'virtual', 'hyper-v', 'vmware', 'vbox', 'docker',
+  'wsl', 'loopback', 'pseudo', 'tunnel', 'wireguard',
+  'nordlynx', 'tailscale', 'zerotier', 'clash', 'wintun',
+  'tap-windows', 'npcap',
 ];
 
 // On macOS, en0 is typically WiFi/Ethernet. We treat the generic "en"
@@ -59,9 +73,16 @@ const VIRTUAL_PREFIXES = [
 // is also treated as physical.
 function classifyInterface(name: string): 0 | 1 | 2 {
   if (name === 'lo' || name === 'lo0') return 0;
+  const lower = name.toLowerCase();
   for (const prefix of VIRTUAL_PREFIXES) {
-    if (name.startsWith(prefix)) return 2;
+    if (lower.startsWith(prefix)) return 2;
   }
+  for (const keyword of VIRTUAL_KEYWORDS_CI) {
+    if (lower.includes(keyword)) return 2;
+  }
+  // Windows: "Unknown adapter ..." or adapters that aren't standard
+  // Ethernet/WiFi/WLAN names are likely virtual
+  if (lower.startsWith('unknown')) return 2;
   return 1;
 }
 
