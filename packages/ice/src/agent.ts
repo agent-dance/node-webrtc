@@ -606,30 +606,23 @@ export class IceAgent extends EventEmitter {
     pair: CandidatePair,
     usedCandidateFlag: boolean,
   ): void {
-    console.log(`[ICE] _handlePairSucceeded role=${this._role} nomination=${this._nomination} usedCandidate=${usedCandidateFlag} nominateOnSuccess=${pair.nominateOnSuccess} nomineePair=${!!this._nomineePair} pair=${pair.local.address}:${pair.local.port}->${pair.remote.address}:${pair.remote.port}`);
     if (this._role === 'controlling') {
       if (
         this._nomination === 'aggressive' ||
         usedCandidateFlag ||
         pair.nominateOnSuccess
       ) {
-        console.log(`[ICE] nominating pair (controlling)`);
         this._nominatePair(pair);
       } else if (!this._nomineePair) {
         // Regular nomination: immediately re-send with USE-CANDIDATE.
-        console.log(`[ICE] regular nomination: re-checking with USE-CANDIDATE`);
         pair.nominateOnSuccess = true;
         pair.state = CandidatePairState.InProgress;
         pair.retransmitCount = 0;
         this._doCheck(pair, true);
-      } else {
-        console.log(`[ICE] already have nominee, skipping`);
       }
     } else {
       // Controlled: nominate if USE-CANDIDATE was set on this pair
-      console.log(`[ICE] controlled: nominateOnSuccess=${pair.nominateOnSuccess}`);
       if (pair.nominateOnSuccess) {
-        console.log(`[ICE] nominating pair (controlled)`);
         this._nominatePair(pair);
       }
     }
@@ -686,7 +679,6 @@ export class IceAgent extends EventEmitter {
     const useCandidate = msg.attributes.some(
       (a: StunAttribute) => a.type === AttributeType.UseCandidate,
     );
-    console.log(`[ICE] binding request from ${rinfo.address}:${rinfo.port} useCandidate=${useCandidate} role=${this._role}`);
 
     // Send success response
     this._sendBindingResponse(msg, rinfo);
@@ -838,7 +830,6 @@ export class IceAgent extends EventEmitter {
 
   private _nominatePair(pair: CandidatePair): void {
     if (this._nomineePair) return;
-    console.log(`[ICE] *** NOMINATED: ${pair.local.address}:${pair.local.port} -> ${pair.remote.address}:${pair.remote.port} ***`);
 
     pair.nominated = true;
     this._nomineePair = pair;
