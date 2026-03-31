@@ -384,7 +384,7 @@ export class PeerInternals extends EventEmitter {
     const dtlsTransport = this.dtlsTransport;
     const startDtls = async () => {
       try {
-        console.log('[PeerInternals] starting DTLS...');
+        console.log(`[PeerInternals] starting DTLS... role=${this._dtlsRole} (v1.0.11)`);
         await dtlsTransport.start();
         console.log('[PeerInternals] DTLS connected, starting SCTP...');
         if (sctpPort !== null) {

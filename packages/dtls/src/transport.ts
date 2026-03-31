@@ -250,6 +250,7 @@ export class DtlsTransport extends EventEmitter {
   // ── Client state machine ─────────────────────────────────────────────────────
 
   private _processAsClient(msg: HandshakeMessage): void {
+    console.log(`[DTLS client] recv msgType=${msg.msgType}`);
     switch (msg.msgType) {
       case HandshakeType.HelloVerifyRequest: {
         const hvr = decodeHelloVerifyRequest(msg.body);
@@ -400,6 +401,7 @@ export class DtlsTransport extends EventEmitter {
 
     // If server requested client certificate, send it before ClientKeyExchange
     if (this.ctx.certificateRequested) {
+      console.log('[DTLS client] sending Certificate + CertificateVerify (mutual auth)');
       this._sendHandshakeBody(HandshakeType.Certificate, encodeCertificate(this.localCertificate.cert));
     }
 
