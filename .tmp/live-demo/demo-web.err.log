@@ -1,0 +1,19 @@
+[Scenario1] Error: Error: RTCPeerConnection is closed
+    at RTCPeerConnection._assertNotClosed (C:\Users\buthim\Documents\GitHub\node-webrtc\packages\webrtc\dist\peer-connection.js:157:19)
+    at RTCPeerConnection.createDataChannel (C:\Users\buthim\Documents\GitHub\node-webrtc\packages\webrtc\dist\peer-connection.js:82:14)
+    at sendFile (C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web\src\scenarios\scenario1-multi-file.ts:109:38)
+    at run (C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web\src\scenarios\scenario1-multi-file.ts:246:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+C:\Users\buthim\Documents\GitHub\node-webrtc\packages\webrtc\src\data-channel.ts:123
+      throw err;
+      ^
+
+Error: DataChannel "file-fed07b58-4886-4e68-93a5-7c6bd793a0e1" is not open (state: closed)
+    at RTCDataChannel.send (C:\Users\buthim\Documents\GitHub\node-webrtc\packages\webrtc\src\data-channel.ts:121:19)
+    at Timeout.sendChunks (C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web\src\scenarios\scenario1-multi-file.ts:154:21)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7) {
+  code: 'InvalidStateError'
+}
+
+Node.js v24.14.0

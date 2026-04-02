@@ -1,0 +1,105 @@
+
+> demo-web@1.0.0 start C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web
+> tsx src/index.ts
+
+[Signaling] Connecting to ws://localhost:8080/ws
+[Main] HTTP server listening on http://localhost:3000
+[Main] Open http://localhost:3000 to view demo status
+[Signaling] Connected
+[Main] Joined room, waiting for peer...
+[Main] Peer joined: flutter-b
+[PeerManager] Starting call with peer: flutter-b
+[PeerManager] Enabled scenarios: 1, 2, 3, 4
+[Scenario1] created channel label=file-0b6ffb90-ac9d-4999-8d24-1141baff63da id=null readyState=connecting
+[PeerManager] Local candidate: candidate:3ab785f5 1 udp 2130706431 127.0.0.1 51009 typ host
+[PeerManager] Local candidate: candidate:afa573b3 1 udp 2130444287 10.222.222.1 51009 typ host
+[PeerManager] Local candidate: candidate:6372d755 1 udp 2130444031 192.168.31.83 51009 typ host
+[PeerManager] ICE gathering complete
+[PeerManager] Offer sent
+[PeerManager] iceConnectionState: checking
+[PeerManager] Remote description set (answer)
+[ICE] connect(): formed 0 pairs
+[PeerManager] Remote candidate: candidate:691951786 1 udp 2122260223 10.222.222.1 51012 typ host generation 0 ufrag GB6a network-id 1 network-cost 50
+[PeerManager] Remote candidate: candidate:2443194953 1 udp 2121998079 192.168.31.83 51013 typ host generation 0 ufrag GB6a network-id 2
+[PeerManager] Remote candidate: candidate:1062225448 1 udp 2122197247 2408:8256:2c80:1c86:26a:37ca:99e2:3a0f 51014 typ host generation 0 ufrag GB6a network-id 3
+[PeerManager] Remote candidate: candidate:3834900848 1 udp 2122131711 2408:8256:2c80:1c86:9006:db79:f555:aa93 51015 typ host generation 0 ufrag GB6a network-id 4
+[PeerManager] Remote candidate: candidate:316964506 1 udp 2122066175 2408:8256:2c80:1c86::ff5 51016 typ host generation 0 ufrag GB6a network-id 5
+[ICE] success: 127.0.0.1:51009 -> 10.222.222.1:51012
+[ICE] success: 127.0.0.1:51009 -> 10.222.222.1:51012
+[PeerManager] iceConnectionState: connected
+[PeerManager] connectionState: connecting
+[PeerInternals] starting DTLS...
+[DTLS server] received msgType=1 seq=0
+[DTLS server] received msgType=1 seq=1
+[DTLS server] received msgType=16 seq=2
+[DTLS server] received msgType=20 seq=3
+[PeerInternals] DTLS connected, starting SCTP...
+[SCTP server] _handleInit chunk.value.length=26
+[SCTP server] _handleCookieEcho → sending COOKIE_ACK
+[SCTP server] sending DCEP_OPEN streamId=1 label="file-0b6ffb90-ac9d-4999-8d24-1141baff63da" channelType=0
+[SCTP server] sending DCEP_OPEN streamId=3 label="large-file" channelType=0
+[SCTP server] sending DCEP_OPEN streamId=5 label="snake-game" channelType=1
+[SCTP server] sending DCEP_OPEN streamId=7 label="video-stream" channelType=129
+[PeerInternals] SCTP connected!
+[PeerManager] connectionState: connected
+[PeerInternals] connectionState=connected
+[SCTP server] _handleDcep streamId=1 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=1 channel=file-0b6ffb90-ac9d-4999-8d24-1141baff63da
+[RTCDataChannel] SCTP 'open' for label="file-0b6ffb90-ac9d-4999-8d24-1141baff63da" (streamId=1)
+[Scenario1] channel OPEN: file-0b6ffb90-ac9d-4999-8d24-1141baff63da
+[Scenario1] META sent: file-0b6ffb90-ac9d-4999-8d24-1141baff63da
+[SCTP server] _handleDcep streamId=3 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=3 channel=large-file
+[RTCDataChannel] SCTP 'open' for label="large-file" (streamId=3)
+[Scenario2] Channel open, sending meta
+[Scenario2] META sent, waiting for READY
+[SCTP server] _handleDcep streamId=5 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=5 channel=snake-game
+[RTCDataChannel] SCTP 'open' for label="snake-game" (streamId=5)
+[Scenario3] Snake channel open, starting game loop
+[SCTP server] _handleDcep streamId=7 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=7 channel=video-stream
+[RTCDataChannel] SCTP 'open' for label="video-stream" (streamId=7)
+[Scenario4] Video channel open, starting stream
+[Scenario2] Received READY, starting transfer
+[ICE] success: 127.0.0.1:51009 -> 192.168.31.83:51013
+[Scenario1] sendFile done: file-0b6ffb90-ac9d-4999-8d24-1141baff63da
+[SCTP server] sending DCEP_OPEN streamId=9 label="file-91704e83-fd66-4aa5-acc1-87f105fc7dc9" channelType=0
+[Scenario1] created channel label=file-91704e83-fd66-4aa5-acc1-87f105fc7dc9 id=9 readyState=connecting
+[SCTP server] _handleDcep streamId=9 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=9 channel=file-91704e83-fd66-4aa5-acc1-87f105fc7dc9
+[RTCDataChannel] SCTP 'open' for label="file-91704e83-fd66-4aa5-acc1-87f105fc7dc9" (streamId=9)
+[Scenario1] channel OPEN: file-91704e83-fd66-4aa5-acc1-87f105fc7dc9
+[Scenario1] META sent: file-91704e83-fd66-4aa5-acc1-87f105fc7dc9
+[Scenario1] sendFile done: file-91704e83-fd66-4aa5-acc1-87f105fc7dc9
+[SCTP server] sending DCEP_OPEN streamId=11 label="file-3f454dab-ea82-452e-9de9-7c0673c20673" channelType=0
+[Scenario1] created channel label=file-3f454dab-ea82-452e-9de9-7c0673c20673 id=11 readyState=connecting
+[SCTP server] _handleDcep streamId=11 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=11 channel=file-3f454dab-ea82-452e-9de9-7c0673c20673
+[RTCDataChannel] SCTP 'open' for label="file-3f454dab-ea82-452e-9de9-7c0673c20673" (streamId=11)
+[Scenario1] channel OPEN: file-3f454dab-ea82-452e-9de9-7c0673c20673
+[Scenario1] META sent: file-3f454dab-ea82-452e-9de9-7c0673c20673
+[Scenario1] sendFile done: file-3f454dab-ea82-452e-9de9-7c0673c20673
+[SCTP server] sending DCEP_OPEN streamId=13 label="file-d80f2d30-998d-444c-8c64-7d552d471ab0" channelType=0
+[Scenario1] created channel label=file-d80f2d30-998d-444c-8c64-7d552d471ab0 id=13 readyState=connecting
+[SCTP server] _handleDcep streamId=13 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=13 channel=file-d80f2d30-998d-444c-8c64-7d552d471ab0
+[RTCDataChannel] SCTP 'open' for label="file-d80f2d30-998d-444c-8c64-7d552d471ab0" (streamId=13)
+[Scenario1] channel OPEN: file-d80f2d30-998d-444c-8c64-7d552d471ab0
+[Scenario1] META sent: file-d80f2d30-998d-444c-8c64-7d552d471ab0
+[Scenario1] sendFile done: file-d80f2d30-998d-444c-8c64-7d552d471ab0
+[SCTP server] sending DCEP_OPEN streamId=15 label="file-499393ae-2b76-476e-98db-9dda76379da1" channelType=0
+[Scenario1] created channel label=file-499393ae-2b76-476e-98db-9dda76379da1 id=15 readyState=connecting
+[SCTP server] _handleDcep streamId=15 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=15 channel=file-499393ae-2b76-476e-98db-9dda76379da1
+[RTCDataChannel] SCTP 'open' for label="file-499393ae-2b76-476e-98db-9dda76379da1" (streamId=15)
+[Scenario1] channel OPEN: file-499393ae-2b76-476e-98db-9dda76379da1
+[Scenario1] META sent: file-499393ae-2b76-476e-98db-9dda76379da1
+[Scenario2] All chunks sent. Local SHA-256: c39409507a3b9c049163e7a90feae3d6db5f9631ded5ff1d2cdc3b0dcc6ece37
+[Scenario1] sendFile done: file-499393ae-2b76-476e-98db-9dda76379da1
+[Scenario1] All files transferred and verified
+[Scenario2] Verify: ok=true, avg_speed=186.36 MB/s, remote_sha256=c39409507a3b9c049163e7a90feae3d6db5f9631ded5ff1d2cdc3b0dcc6ece37
+[ICE] success: 127.0.0.1:51009 -> 10.222.222.1:51012
+[ICE] success: 127.0.0.1:51009 -> 10.222.222.1:51012
+[ICE] success: 127.0.0.1:51009 -> 10.222.222.1:51012
+ ELIFECYCLE  Command failed with exit code 4294967295.

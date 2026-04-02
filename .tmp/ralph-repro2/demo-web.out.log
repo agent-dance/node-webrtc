@@ -1,0 +1,161 @@
+
+> demo-web@1.0.0 start C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web
+> tsx src/index.ts
+
+[Signaling] Connecting to ws://localhost:8080/ws
+[Main] HTTP server listening on http://localhost:3000
+[Main] Open http://localhost:3000 to view demo status
+[Signaling] Connected
+[Main] Joined room, waiting for peer...
+[Main] Peer joined: flutter-b
+[PeerManager] Starting call with peer: flutter-b
+[PeerManager] Enabled scenarios: 1, 2, 3
+[Scenario1] created channel label=file-7b386679-bfa1-4dcc-af09-f1959087d086 id=null readyState=connecting
+[PeerManager] Local candidate: candidate:3ab785f5 1 udp 2130706431 127.0.0.1 52928 typ host
+[PeerManager] Local candidate: candidate:afa573b3 1 udp 2130444287 10.222.222.1 52928 typ host
+[PeerManager] Local candidate: candidate:6372d755 1 udp 2130444031 192.168.31.83 52928 typ host
+[PeerManager] ICE gathering complete
+[PeerManager] Offer sent
+[PeerManager] iceConnectionState: checking
+[PeerManager] Remote description set (answer)
+[ICE] connect(): formed 0 pairs
+[PeerManager] Remote candidate: candidate:3177549396 1 udp 2122260223 10.222.222.1 52931 typ host generation 0 ufrag /qri network-id 1 network-cost 50
+[PeerManager] Remote candidate: candidate:2229183484 1 udp 2121998079 192.168.31.83 52932 typ host generation 0 ufrag /qri network-id 2
+[PeerManager] Remote candidate: candidate:3200582214 1 udp 2122197247 2408:8256:2c80:1c86:26a:37ca:99e2:3a0f 52933 typ host generation 0 ufrag /qri network-id 3
+[PeerManager] Remote candidate: candidate:3685619767 1 udp 2122131711 2408:8256:2c80:1c86:9006:db79:f555:aa93 52934 typ host generation 0 ufrag /qri network-id 4
+[PeerManager] Remote candidate: candidate:2609341662 1 udp 2122066175 2408:8256:2c80:1c86::ff5 52935 typ host generation 0 ufrag /qri network-id 5
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[PeerManager] iceConnectionState: connected
+[PeerManager] connectionState: connecting
+[PeerInternals] starting DTLS...
+[DTLS server] received msgType=1 seq=0
+[DTLS server] received msgType=1 seq=1
+[DTLS server] received msgType=16 seq=2
+[DTLS server] received msgType=20 seq=3
+[PeerInternals] DTLS connected, starting SCTP...
+[SCTP server] _handleInit chunk.value.length=26
+[SCTP server] _handleCookieEcho → sending COOKIE_ACK
+[SCTP server] sending DCEP_OPEN streamId=1 label="file-7b386679-bfa1-4dcc-af09-f1959087d086" channelType=0
+[SCTP server] sending DCEP_OPEN streamId=3 label="large-file" channelType=0
+[SCTP server] sending DCEP_OPEN streamId=5 label="snake-game" channelType=1
+[PeerInternals] SCTP connected!
+[PeerManager] connectionState: connected
+[PeerInternals] connectionState=connected
+[SCTP server] _handleDcep streamId=1 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=1 channel=file-7b386679-bfa1-4dcc-af09-f1959087d086
+[RTCDataChannel] SCTP 'open' for label="file-7b386679-bfa1-4dcc-af09-f1959087d086" (streamId=1)
+[Scenario1] channel OPEN: file-7b386679-bfa1-4dcc-af09-f1959087d086
+[Scenario1] META sent: file-7b386679-bfa1-4dcc-af09-f1959087d086
+[SCTP server] _handleDcep streamId=3 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=3 channel=large-file
+[RTCDataChannel] SCTP 'open' for label="large-file" (streamId=3)
+[Scenario2] Channel open, sending meta
+[Scenario2] META sent, waiting for READY
+[SCTP server] _handleDcep streamId=5 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=5 channel=snake-game
+[RTCDataChannel] SCTP 'open' for label="snake-game" (streamId=5)
+[Scenario3] Snake channel open, starting game loop
+[Scenario2] Received READY, starting transfer
+[ICE] success: 127.0.0.1:52928 -> 192.168.31.83:52932
+[Scenario2] progress=1.1% sent=0.4MB speed=0.12MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=512KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[ICE] success: 127.0.0.1:52928 -> 10.222.222.1:52931
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+[Scenario2] progress=1.1% sent=0.4MB speed=0.00MB/s buffered=509KB
+ ELIFECYCLE  Command failed with exit code 4294967295.

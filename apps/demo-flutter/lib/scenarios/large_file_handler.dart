@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -16,6 +15,7 @@ class LargeFileHandler extends ChangeNotifier {
   late Uint8List _buffer;
   bool _ready = false;
   int _expectedChunkSize = 0;
+  String _transportMode = 'raw';
   DateTime? _startTime;
   RTCDataChannel? _channel;
 
@@ -41,12 +41,15 @@ class LargeFileHandler extends ChangeNotifier {
     try {
       final msg = jsonDecode(text) as Map<String, dynamic>;
       final type = msg['type'] as String?;
+      final payload = msg['payload'] as Map<String, dynamic>?;
       debugPrint('[LargeFile] text message type=$type');
 
       if (type == 'LARGE_FILE_META') {
-        final payload = msg['payload'] as Map<String, dynamic>;
+        if (payload == null) return;
         totalSize = payload['totalSize'] as int;
         _expectedChunkSize = payload['chunkSize'] as int;
+        _transportMode =
+            (payload['transportMode'] as String?) == 'descriptor' ? 'descriptor' : 'raw';
 
         // Pre-allocate buffer
         _buffer = Uint8List(totalSize);
@@ -61,8 +64,10 @@ class LargeFileHandler extends ChangeNotifier {
         _channel?.send(RTCDataChannelMessage(jsonEncode({'type': 'READY'})));
         _startTime = DateTime.now();
         _ready = true;
+      } else if (type == 'LARGE_FILE_CHUNK' && payload != null) {
+        _handleTextChunk(payload);
       } else if (type == 'EOF_MARKER') {
-        final payload = msg['payload'] as Map<String, dynamic>;
+        if (payload == null) return;
         sha256Remote = payload['sha256'] as String;
         _finalizeVerification();
       }
@@ -110,5 +115,31 @@ class LargeFileHandler extends ChangeNotifier {
     })));
 
     notifyListeners();
+  }
+
+  void _handleTextChunk(Map<String, dynamic> payload) {
+    if (!_ready) return;
+
+    final seq = payload['seq'] as int;
+    final chunkData = _transportMode == 'descriptor'
+        ? _generateChunk(seq, payload['size'] as int)
+        : base64Decode(payload['dataBase64'] as String);
+    final offset = seq * _expectedChunkSize;
+
+    if (offset + chunkData.length <= _buffer.length) {
+      _buffer.setRange(offset, offset + chunkData.length, chunkData);
+      final prevMB = bytesReceived ~/ (4 * 1024 * 1024);
+      bytesReceived += chunkData.length;
+      final newMB = bytesReceived ~/ (4 * 1024 * 1024);
+      if (newMB > prevMB) notifyListeners();
+    }
+  }
+
+  Uint8List _generateChunk(int seq, int size) {
+    final chunk = Uint8List(size);
+    for (var i = 0; i < size; i++) {
+      chunk[i] = (seq * 251 + i * 13) & 0xff;
+    }
+    return chunk;
   }
 }

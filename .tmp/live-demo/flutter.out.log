@@ -1,0 +1,270 @@
+Launching lib\main.dart on Windows in debug mode...
+Building Windows application...                                     5.0s
+✓ Built build\windows\x64\runner\Debug\demo_flutter.exe
+Syncing files to device Windows...                                  47ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on Windows is available at: http://127.0.0.1:35303/6cdt_yoUOr8=/
+The Flutter DevTools debugger and profiler on Windows is available at: http://127.0.0.1:35303/6cdt_yoUOr8=/devtools/?uri=ws://127.0.0.1:35303/6cdt_yoUOr8=/ws
+[Signaling] Received: joined
+[Signaling] Received: candidate
+[Signaling] Received: candidate
+[Signaling] Received: candidate
+[Signaling] Received: offer
+[WebRTC] Answer sent
+[WebRTC] iceConnectionState: RTCIceConnectionState.RTCIceConnectionStateChecking
+[WebRTC] connectionState: RTCPeerConnectionState.RTCPeerConnectionStateConnecting
+[WebRTC] connectionState: RTCPeerConnectionState.RTCPeerConnectionStateConnected
+[WebRTC] iceConnectionState: RTCIceConnectionState.RTCIceConnectionStateConnected
+[WebRTC] DataChannel: file-b3d6d09b-0289-436a-b47d-d48a396ea57a
+[FileTransfer] New channel: file-b3d6d09b-0289-436a-b47d-d48a396ea57a
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a state: RTCDataChannelState.RTCDataChannelOpen
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=186
+[FileTransfer] Got meta for file-0.bin (262144 bytes)
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1659
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1662
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1663
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=1664
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=788
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a message: isBinary=false len=70
+[FileTransfer] file-0.bin: verified=true, local=2312394bd99545d9de131c24efb781e765ac1aec243f2ed9347597a793a415e9, expected=2312394bd99545d9de131c24efb781e765ac1aec243f2ed9347597a793a415e9
+[FileTransfer] ACK sent for file-0.bin
+[WebRTC] DataChannel: file-fed07b58-4886-4e68-93a5-7c6bd793a0e1
+[FileTransfer] New channel: file-fed07b58-4886-4e68-93a5-7c6bd793a0e1
+[FileTransfer] file-fed07b58-4886-4e68-93a5-7c6bd793a0e1 state: RTCDataChannelState.RTCDataChannelOpen
+[FileTransfer] file-fed07b58-4886-4e68-93a5-7c6bd793a0e1 message: isBinary=false len=186
+[FileTransfer] Got meta for file-1.bin (364544 bytes)
+[WebRTC] iceConnectionState: RTCIceConnectionState.RTCIceConnectionStateDisconnected
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a state: RTCDataChannelState.RTCDataChannelClosing
+[WebRTC] connectionState: RTCPeerConnectionState.RTCPeerConnectionStateFailed
+[FileTransfer] file-b3d6d09b-0289-436a-b47d-d48a396ea57a state: RTCDataChannelState.RTCDataChannelClosed
+[FileTransfer] file-fed07b58-4886-4e68-93a5-7c6bd793a0e1 state: RTCDataChannelState.RTCDataChannelClosing
+[FileTransfer] file-fed07b58-4886-4e68-93a5-7c6bd793a0e1 state: RTCDataChannelState.RTCDataChannelClosed
+Lost connection to device.

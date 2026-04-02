@@ -137,10 +137,13 @@ export function registerScenario3Channel(
   pc: RTCPeerConnection,
   state: AppStateManager,
 ): void {
-  const channel: RTCDataChannel = pc.createDataChannel('snake-game', {
-    ordered: true,
-    maxRetransmits: 0,
-  });
+  const reliable =
+    process.env.DEMO_SCENARIO3_RELIABLE === '1' ||
+    process.env.DEMO_SCENARIO3_RELIABLE?.toLowerCase() === 'true';
+  const channelInit = reliable
+    ? { ordered: true }
+    : { ordered: true, maxRetransmits: 0 };
+  const channel: RTCDataChannel = pc.createDataChannel('snake-game', channelInit);
 
   const game = new SnakeGame();
   let tickTimer: NodeJS.Timeout | null = null;

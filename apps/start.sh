@@ -13,10 +13,29 @@ ok()   { echo -e "${GREEN}  ✓${RESET} $*"; }
 warn() { echo -e "${YELLOW}  ⚠${RESET} $*"; }
 die()  { echo -e "${RED}  ✗ $*${RESET}"; exit 1; }
 
+pnpm_cmd() {
+  if command -v pnpm >/dev/null 2>&1; then
+    pnpm "$@"
+  elif command -v corepack >/dev/null 2>&1; then
+    corepack pnpm "$@"
+  else
+    die "pnpm not found. Install pnpm or use a Node.js install with corepack enabled."
+  fi
+}
+
+default_flutter_device() {
+  case "$(uname -s)" in
+    Darwin*) echo "macos" ;;
+    CYGWIN*|MINGW*|MSYS*) echo "windows" ;;
+    *) echo "macos" ;;
+  esac
+}
+
 # ── dependency checks ─────────────────────────────────────────────────────────
 log "Checking dependencies..."
 command -v go    >/dev/null 2>&1 || die "Go not found. Install from https://go.dev/dl/"
-command -v pnpm  >/dev/null 2>&1 || die "pnpm not found. Run: npm i -g pnpm"
+command -v pnpm  >/dev/null 2>&1 || command -v corepack >/dev/null 2>&1 || \
+  die "pnpm not found. Install pnpm or enable corepack."
 command -v flutter >/dev/null 2>&1 && HAS_FLUTTER=1 || { warn "Flutter not found – skipping Flutter step."; HAS_FLUTTER=0; }
 ok "Dependencies OK"
 
@@ -54,14 +73,14 @@ ok "Signaling server up  →  ws://localhost:8080/ws"
 # ── 2. demo-web ───────────────────────────────────────────────────────────────
 log "Installing pnpm dependencies..."
 cd "$SCRIPT_DIR/.."
-pnpm install --frozen-lockfile 2>/dev/null || pnpm install
+pnpm_cmd install --frozen-lockfile 2>/dev/null || pnpm_cmd install
 
-log "Building @ts-rtc/webrtc..."
-pnpm --filter @ts-rtc/webrtc build >/dev/null
+log "Building @agentdance/node-webrtc..."
+pnpm_cmd --filter @agentdance/node-webrtc build >/dev/null
 
 log "Starting demo-web (:3000)..."
 cd "$SCRIPT_DIR/demo-web"
-pnpm start > /tmp/ts-rtc-demo-web.log 2>&1 &
+pnpm_cmd start > /tmp/ts-rtc-demo-web.log 2>&1 &
 PIDS+=($!)
 WEB_PID=$!
 
@@ -105,12 +124,8 @@ if [ "$HAS_FLUTTER" -eq 1 ]; then
   export PUB_HOSTED_URL="https://pub.flutter-io.cn"
   export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
   flutter pub get >/dev/null
-  DEVICE="${1:-macos}"
-  if [ -n "$DEVICE" ]; then
-    flutter run -d "$DEVICE"
-  else
-    flutter run -d macos
-  fi
+  DEVICE="${1:-$(default_flutter_device)}"
+  flutter run -d "$DEVICE"
 else
   echo -e "  ${YELLOW}Flutter${RESET}    Run manually:"
   echo -e "    cd apps/demo-flutter && flutter run"

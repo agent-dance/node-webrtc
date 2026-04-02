@@ -1,0 +1,87 @@
+
+> demo-web@1.0.0 start C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web
+> tsx src/index.ts
+
+[Signaling] Connecting to ws://localhost:8080/ws
+[Main] HTTP server listening on http://localhost:3000
+[Main] Open http://localhost:3000 to view demo status
+[Signaling] Connected
+[Main] Joined room, waiting for peer...
+[Main] Peer joined: flutter-b
+[PeerManager] Starting call with peer: flutter-b
+[PeerManager] Enabled scenarios: 1
+[Scenario1] created channel label=file-b3d6d09b-0289-436a-b47d-d48a396ea57a id=null readyState=connecting
+[PeerManager] Local candidate: candidate:3ab785f5 1 udp 2130706431 127.0.0.1 58869 typ host
+[PeerManager] Local candidate: candidate:afa573b3 1 udp 2130444287 10.222.222.1 58869 typ host
+[PeerManager] Local candidate: candidate:6372d755 1 udp 2130444031 192.168.31.83 58869 typ host
+[PeerManager] ICE gathering complete
+[PeerManager] Offer sent
+[PeerManager] iceConnectionState: checking
+[PeerManager] Remote description set (answer)
+[ICE] connect(): formed 0 pairs
+[PeerManager] Remote candidate: candidate:405355509 1 udp 2122260223 10.222.222.1 58872 typ host generation 0 ufrag EPyN network-id 1 network-cost 50
+[PeerManager] Remote candidate: candidate:2696368406 1 udp 2121998079 192.168.31.83 58873 typ host generation 0 ufrag EPyN network-id 2
+[PeerManager] Remote candidate: candidate:239543671 1 udp 2122197247 2408:8256:2c80:1c86:26a:37ca:99e2:3a0f 58874 typ host generation 0 ufrag EPyN network-id 3
+[PeerManager] Remote candidate: candidate:3582235183 1 udp 2122131711 2408:8256:2c80:1c86:9006:db79:f555:aa93 58875 typ host generation 0 ufrag EPyN network-id 4
+[PeerManager] Remote candidate: candidate:603135429 1 udp 2122066175 2408:8256:2c80:1c86::ff5 58876 typ host generation 0 ufrag EPyN network-id 5
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[PeerManager] iceConnectionState: connected
+[PeerManager] connectionState: connecting
+[PeerInternals] starting DTLS...
+[DTLS server] received msgType=1 seq=0
+[DTLS server] received msgType=1 seq=1
+[DTLS server] received msgType=16 seq=2
+[DTLS server] received msgType=20 seq=3
+[PeerInternals] DTLS connected, starting SCTP...
+[SCTP server] _handleInit chunk.value.length=26
+[SCTP server] _handleCookieEcho → sending COOKIE_ACK
+[SCTP server] sending DCEP_OPEN streamId=1 label="file-b3d6d09b-0289-436a-b47d-d48a396ea57a" channelType=0
+[PeerInternals] SCTP connected!
+[PeerManager] connectionState: connected
+[PeerInternals] connectionState=connected
+[SCTP server] _handleDcep streamId=1 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=1 channel=file-b3d6d09b-0289-436a-b47d-d48a396ea57a
+[RTCDataChannel] SCTP 'open' for label="file-b3d6d09b-0289-436a-b47d-d48a396ea57a" (streamId=1)
+[Scenario1] channel OPEN: file-b3d6d09b-0289-436a-b47d-d48a396ea57a
+[Scenario1] META sent: file-b3d6d09b-0289-436a-b47d-d48a396ea57a
+[ICE] success: 127.0.0.1:58869 -> 192.168.31.83:58873
+[Scenario1] sendFile done: file-b3d6d09b-0289-436a-b47d-d48a396ea57a
+[SCTP server] sending DCEP_OPEN streamId=3 label="file-fed07b58-4886-4e68-93a5-7c6bd793a0e1" channelType=0
+[Scenario1] created channel label=file-fed07b58-4886-4e68-93a5-7c6bd793a0e1 id=3 readyState=connecting
+[SCTP server] _handleDcep streamId=3 data[0]=0x2
+[SCTP server] DCEP_ACK on streamId=3 channel=file-fed07b58-4886-4e68-93a5-7c6bd793a0e1
+[RTCDataChannel] SCTP 'open' for label="file-fed07b58-4886-4e68-93a5-7c6bd793a0e1" (streamId=3)
+[Scenario1] channel OPEN: file-fed07b58-4886-4e68-93a5-7c6bd793a0e1
+[Scenario1] META sent: file-fed07b58-4886-4e68-93a5-7c6bd793a0e1
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[ICE] success: 127.0.0.1:58869 -> 10.222.222.1:58872
+[Main] Peer left: flutter-b
+[PeerManager] iceConnectionState: closed
+[PeerManager] connectionState: closed
+[Scenario1] sendFile done: file-fed07b58-4886-4e68-93a5-7c6bd793a0e1
+ ELIFECYCLE  Command failed with exit code 1.

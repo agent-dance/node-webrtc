@@ -1,0 +1,3 @@
+2026/04/01 23:58:04 signaling server listening on :8080
+2026/04/01 23:58:04 server error: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+exit status 1

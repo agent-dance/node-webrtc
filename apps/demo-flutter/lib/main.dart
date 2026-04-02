@@ -11,7 +11,9 @@ void main() {
 }
 
 class DemoApp extends StatelessWidget {
-  const DemoApp({super.key});
+  const DemoApp({super.key, this.autoConnect = true});
+
+  final bool autoConnect;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,9 @@ class DemoApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) {
           final sig = SignalingService();
-          // Auto-connect on startup for automated testing
-          WidgetsBinding.instance.addPostFrameCallback((_) => sig.connect());
+          if (autoConnect) {
+            WidgetsBinding.instance.addPostFrameCallback((_) => sig.connect());
+          }
           return sig;
         }),
         ChangeNotifierProxyProvider<SignalingService, WebRtcService>(

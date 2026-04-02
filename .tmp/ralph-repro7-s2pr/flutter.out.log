@@ -1,0 +1,37 @@
+Launching lib\main.dart on Windows in debug mode...
+Building Windows application...                                     4.9s
+✓ Built build\windows\x64\runner\Debug\demo_flutter.exe
+Syncing files to device Windows...                                  41ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on Windows is available at: http://127.0.0.1:24114/BR72b5gU058=/
+The Flutter DevTools debugger and profiler on Windows is available at: http://127.0.0.1:24114/BR72b5gU058=/devtools/?uri=ws://127.0.0.1:24114/BR72b5gU058=/ws
+[Signaling] Received: joined
+[Signaling] Received: candidate
+[Signaling] Received: candidate
+[Signaling] Received: candidate
+[Signaling] Received: offer
+[WebRTC] Answer sent
+[WebRTC] iceConnectionState: RTCIceConnectionState.RTCIceConnectionStateChecking
+[WebRTC] connectionState: RTCPeerConnectionState.RTCPeerConnectionStateConnecting
+[WebRTC] connectionState: RTCPeerConnectionState.RTCPeerConnectionStateConnected
+[WebRTC] iceConnectionState: RTCIceConnectionState.RTCIceConnectionStateConnected
+[WebRTC] DataChannel: large-file
+[LargeFile] Channel ready
+[LargeFile] State: RTCDataChannelState.RTCDataChannelOpen
+[LargeFile] message isBinary=false len=75
+[LargeFile] text message type=LARGE_FILE_META
+[LargeFile] Meta received: totalSize=33554432
+[WebRTC] iceConnectionState: RTCIceConnectionState.RTCIceConnectionStateDisconnected
+[LargeFile] State: RTCDataChannelState.RTCDataChannelClosing
+[WebRTC] connectionState: RTCPeerConnectionState.RTCPeerConnectionStateFailed
+[LargeFile] State: RTCDataChannelState.RTCDataChannelClosed
+[Signaling] Received: peer-left
+Lost connection to device.

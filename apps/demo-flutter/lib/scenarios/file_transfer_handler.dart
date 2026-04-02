@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -9,6 +8,8 @@ class FileInfo {
   final String name;
   final int size;
   final String sha256;
+  final int generatorIndex;
+  final String transportMode;
   int bytesReceived;
   bool? verified;
   Uint8List? data;
@@ -18,6 +19,8 @@ class FileInfo {
     required this.name,
     required this.size,
     required this.sha256,
+    required this.generatorIndex,
+    required this.transportMode,
   })  : bytesReceived = 0,
         data = Uint8List(size);
 }
@@ -60,6 +63,8 @@ class FileTransferHandler extends ChangeNotifier {
           name: payload['name'] as String,
           size: payload['size'] as int,
           sha256: payload['sha256'] as String,
+          generatorIndex: payload['generatorIndex'] as int? ?? 0,
+          transportMode: payload['transportMode'] as String? ?? 'raw',
         );
         _files[info.id] = info;
         debugPrint('[FileTransfer] Got meta for ${info.name} (${info.size} bytes)');
@@ -69,6 +74,24 @@ class FileTransferHandler extends ChangeNotifier {
         final info = _files[fileId];
         if (info != null) {
           _verifyFile(info, channelLabel);
+        }
+      } else if (type == 'CHUNK' && payload != null) {
+        final fileId = payload['id'] as String;
+        final offset = payload['offset'] as int;
+        final info = _files[fileId];
+        if (info == null || info.data == null) return;
+
+        final chunkData = info.transportMode == 'descriptor'
+            ? _generateChunk(
+                info.generatorIndex,
+                offset,
+                payload['length'] as int,
+              )
+            : base64Decode(payload['dataBase64'] as String);
+        info.data!.setRange(offset, offset + chunkData.length, chunkData);
+        info.bytesReceived += chunkData.length;
+        if (info.bytesReceived % (64 * 1024) < chunkData.length) {
+          notifyListeners();
         }
       }
     } catch (e) {
@@ -125,5 +148,13 @@ class FileTransferHandler extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Uint8List _generateChunk(int fileIndex, int offset, int length) {
+    final chunk = Uint8List(length);
+    for (var i = 0; i < length; i++) {
+      chunk[i] = (fileIndex * 17 + offset + i) & 0xff;
+    }
+    return chunk;
   }
 }

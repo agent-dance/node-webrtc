@@ -9,9 +9,9 @@
  */
 
 import { fork } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);
@@ -19,10 +19,16 @@ const repoRoot   = resolve(__dirname, '../..');
 
 // 找到 tsx ESM loader（pnpm 把包放在 .pnpm 目录下）
 function findTsxLoader(): string {
-  const candidates = [
-    join(repoRoot, 'node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/esm/index.mjs'),
-    join(repoRoot, 'node_modules/tsx/dist/esm/index.mjs'),
-  ];
+  const candidates: string[] = [];
+  const pnpmStoreDir = join(repoRoot, 'node_modules/.pnpm');
+  if (existsSync(pnpmStoreDir)) {
+    for (const entry of readdirSync(pnpmStoreDir)) {
+      if (entry.startsWith('tsx@')) {
+        candidates.push(join(pnpmStoreDir, entry, 'node_modules/tsx/dist/esm/index.mjs'));
+      }
+    }
+  }
+  candidates.push(join(repoRoot, 'node_modules/tsx/dist/esm/index.mjs'));
   for (const p of candidates) {
     if (existsSync(p)) return p;
   }
@@ -30,7 +36,7 @@ function findTsxLoader(): string {
   throw new Error('Cannot find tsx ESM loader. Run pnpm install first.');
 }
 
-const tsxLoader    = findTsxLoader();
+const tsxLoader    = pathToFileURL(findTsxLoader()).href;
 const senderPath   = join(__dirname, 'bench-sender.ts');
 const receiverPath = join(__dirname, 'bench-receiver.ts');
 
