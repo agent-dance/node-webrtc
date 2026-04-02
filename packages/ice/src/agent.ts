@@ -614,17 +614,11 @@ export class IceAgent extends EventEmitter {
       ) {
         this._nominatePair(pair);
       } else if (!this._nomineePair) {
-        // Regular nomination: re-send with USE-CANDIDATE
+        // Regular nomination: immediately re-send with USE-CANDIDATE.
         pair.nominateOnSuccess = true;
-        pair.state = CandidatePairState.Waiting;
+        pair.state = CandidatePairState.InProgress;
         pair.retransmitCount = 0;
-        setImmediate(() => {
-          if (pair.state === CandidatePairState.Waiting) {
-            pair.state = CandidatePairState.InProgress;
-            pair.retransmitCount = 0;
-            this._doCheck(pair, true);
-          }
-        });
+        this._doCheck(pair, true);
       }
     } else {
       // Controlled: nominate if USE-CANDIDATE was set on this pair
@@ -740,20 +734,14 @@ export class IceAgent extends EventEmitter {
       pair.nominateOnSuccess = true;
     }
 
-    // Triggered check
+    // Triggered check — execute synchronously to avoid _tick() race.
     if (
       pair.state !== CandidatePairState.InProgress &&
       pair.state !== CandidatePairState.Succeeded
     ) {
-      pair.state = CandidatePairState.Waiting;
+      pair.state = CandidatePairState.InProgress;
       pair.retransmitCount = 0;
-      setImmediate(() => {
-        if (pair.state === CandidatePairState.Waiting) {
-          pair.state = CandidatePairState.InProgress;
-          pair.retransmitCount = 0;
-          this._doCheck(pair, false);
-        }
-      });
+      this._doCheck(pair, false);
     }
 
     // Controlled: nominate immediately if USE-CANDIDATE and pair already succeeded

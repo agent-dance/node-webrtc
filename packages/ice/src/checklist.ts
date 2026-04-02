@@ -35,6 +35,11 @@ export function formCandidatePairs(
       // ts-rtc binds a udp4 socket; IPv6 candidates will silently fail — skip them
       if (remote.address.includes(':')) continue;
 
+      // Skip loopback↔non-loopback pairs — they can never succeed across hosts
+      const localIsLoopback = local.address === '127.0.0.1' || local.address === '::1';
+      const remoteIsLoopback = remote.address === '127.0.0.1' || remote.address === '::1';
+      if (localIsLoopback !== remoteIsLoopback) continue;
+
       const controlling = role === 'controlling' ? local : remote;
       const controlled = role === 'controlling' ? remote : local;
       const priority = computePairPriority(controlling, controlled);

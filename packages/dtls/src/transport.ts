@@ -51,6 +51,7 @@ import {
   encodeEcPublicKey,
   ecdsaSign,
   ecdsaVerify,
+  sha256,
   hmacSha256,
 } from './crypto.js';
 import {
@@ -249,6 +250,7 @@ export class DtlsTransport extends EventEmitter {
   // ── Client state machine ─────────────────────────────────────────────────────
 
   private _processAsClient(msg: HandshakeMessage): void {
+    console.log(`[DTLS client] recv msgType=${msg.msgType}`);
     switch (msg.msgType) {
       case HandshakeType.HelloVerifyRequest: {
         const hvr = decodeHelloVerifyRequest(msg.body);
@@ -296,6 +298,11 @@ export class DtlsTransport extends EventEmitter {
         this.ctx.peerEcPublicKeyBytes = ske.publicKey;
         break;
       }
+      case HandshakeType.CertificateRequest:
+        // Server requested client certificate (WebRTC mutual auth).
+        // Just note it — we'll send our cert in _sendClientKeyExchange.
+        this.ctx.certificateRequested = true;
+        break;
       case HandshakeType.ServerHelloDone:
         this._sendClientKeyExchange().catch((e: unknown) =>
           this._fail(e instanceof Error ? e : new Error(String(e))),
@@ -391,8 +398,32 @@ export class DtlsTransport extends EventEmitter {
       this.ctx.ecdhPrivateKey,
       this.ctx.peerEcPublicKeyBytes,
     );
+
+    // If server requested client certificate, send it before ClientKeyExchange
+    if (this.ctx.certificateRequested) {
+      console.log('[DTLS client] sending Certificate + CertificateVerify (mutual auth)');
+      this._sendHandshakeBody(HandshakeType.Certificate, encodeCertificate(this.localCertificate.cert));
+    }
+
     const myPkBytes = encodeEcPublicKey(this.ctx.ecdhPublicKey);
     this._sendHandshakeBody(HandshakeType.ClientKeyExchange, encodeClientKeyExchange({ publicKey: myPkBytes }));
+
+    // If server requested client certificate, send CertificateVerify
+    if (this.ctx.certificateRequested) {
+      // RFC 5246 §7.4.8: sign Hash(handshake_messages) with client's private key.
+      // ecdsaSign uses crypto.sign('sha256',...) which internally hashes the data,
+      // so we pass the raw transcript (NOT pre-hashed).
+      const transcript = Buffer.concat(this.ctx.messages);
+      const sig = ecdsaSign(this.localCertificate.privateKey, transcript);
+      // CertificateVerify body: 2 bytes sig algorithm + 2 bytes sig length + sig
+      const cvBody = Buffer.alloc(4 + sig.length);
+      cvBody.writeUInt8(SIG_HASH_SHA256, 0);  // hash algorithm
+      cvBody.writeUInt8(SIG_ALG_ECDSA, 1);    // signature algorithm
+      cvBody.writeUInt16BE(sig.length, 2);
+      sig.copy(cvBody, 4);
+      this._sendHandshakeBody(HandshakeType.CertificateVerify, cvBody);
+    }
+
     this._deriveKeys();
     this._sendChangeCipherSpec();
     this._sendFinished();
