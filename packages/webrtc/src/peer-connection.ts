@@ -61,11 +61,33 @@ export class RTCPeerConnection extends EventEmitter {
   private _dataChannels: Map<string, _RTCDataChannel> = new Map();
   private _pendingChannels: _RTCDataChannel[] = [];
 
+  private static _versionLogged = false;
+  private static async _logVersions(): Promise<void> {
+    const pkgs = ['node-webrtc', 'node-webrtc-ice', 'node-webrtc-dtls', 'node-webrtc-sctp', 'node-webrtc-sdp', 'node-webrtc-stun'];
+    const versions: string[] = [];
+    for (const pkg of pkgs) {
+      try {
+        const { createRequire } = await import('node:module');
+        const require = createRequire(import.meta.url);
+        const p = require(`@agentdance/${pkg}/package.json`);
+        versions.push(`${pkg}@${p.version}`);
+      } catch {
+        versions.push(`${pkg}@?`);
+      }
+    }
+    console.log(`[@agentdance/node-webrtc] ${versions.join(', ')}`);
+  }
+
   // Protocol stack (initialized lazily)
   private _internals: import('./internal/peer-internals.js').PeerInternals | undefined;
 
   constructor(config: RTCConfiguration = {}) {
     super();
+    // Log version info on first instantiation for troubleshooting
+    if (!RTCPeerConnection._versionLogged) {
+      RTCPeerConnection._versionLogged = true;
+      RTCPeerConnection._logVersions().catch(() => {});
+    }
     this._config = {
       iceServers: config.iceServers ?? [{ urls: 'stun:stun.l.google.com:19302' }],
       iceTransportPolicy: config.iceTransportPolicy ?? 'all',

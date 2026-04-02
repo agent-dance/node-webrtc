@@ -83,6 +83,7 @@ export class PeerInternals extends EventEmitter {
     await this._ensureCertificate();
     const sdp = await generateSdpAnswer(this.iceAgent!, this._remoteSdp!, this._config, this.localCertificate!);
     this._localSdp = sdp;
+    console.log(`[PeerInternals] createAnswer mlines=${(sdp.match(/m=.+/g) || []).length} mids=${(sdp.match(/a=mid:\S+/g) || []).join(',')}`);
     return { type: 'answer', sdp };
   }
 
@@ -110,6 +111,7 @@ export class PeerInternals extends EventEmitter {
 
   async setRemoteDescription(desc: RTCSessionDescriptionInit): Promise<void> {
     this._remoteSdp = desc.sdp;
+    console.log(`[PeerInternals] setRemoteDescription type=${desc.type} mlines=${(desc.sdp?.match(/m=.+/g) || []).length} mids=${(desc.sdp?.match(/a=mid:\S+/g) || []).join(',')}`);
 
     // Set ICE/DTLS role before creating the ICE agent
     if (desc.type === 'offer') {
