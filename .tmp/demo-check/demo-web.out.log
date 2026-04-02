@@ -1,9 +1,0 @@
-
-> demo-web@1.0.0 start C:\Users\buthim\Documents\GitHub\node-webrtc\apps\demo-web
-> tsx src/index.ts
-
-[Signaling] Connecting to ws://localhost:8080/ws
-[Main] HTTP server listening on http://localhost:3000
-[Main] Open http://localhost:3000 to view demo status
-[Signaling] Connected
-[Main] Joined room, waiting for peer...
