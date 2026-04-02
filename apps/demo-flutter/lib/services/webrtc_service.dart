@@ -9,10 +9,38 @@ import '../scenarios/video_receiver_handler.dart';
 
 enum PeerConnectionState { newState, connecting, connected, disconnected, failed, closed }
 
+bool _shouldInitiateConnection(
+  SignalingRole localRole,
+  String localPeerId,
+  SignalingRole remoteRole,
+  String remotePeerId,
+) {
+  const roleRank = {
+    SignalingRole.answerer: 0,
+    SignalingRole.auto: 1,
+    SignalingRole.offerer: 2,
+  };
+
+  final localRank = roleRank[localRole]!;
+  final remoteRank = roleRank[remoteRole]!;
+  if (localRank != remoteRank) {
+    return localRank > remoteRank;
+  }
+  return localPeerId.compareTo(remotePeerId) < 0;
+}
+
 class WebRtcService extends ChangeNotifier {
   final SignalingService _signaling;
+  static const Map<String, dynamic> _dataOnlyOfferConstraints = {
+    'mandatory': {
+      'OfferToReceiveAudio': false,
+      'OfferToReceiveVideo': false,
+    },
+    'optional': [],
+  };
 
   RTCPeerConnection? _pc;
+  RTCDataChannel? _bootstrapDataChannel;
   PeerConnectionState _connectionState = PeerConnectionState.newState;
 
   // Scenario handlers
@@ -68,6 +96,25 @@ class WebRtcService extends ChangeNotifier {
     };
   }
 
+  Future<void> _startCall(String remotePeerId) async {
+    if (_pc != null) {
+      await _pc!.close();
+      _pc = null;
+      _bootstrapDataChannel = null;
+      _remoteDescriptionSet = false;
+      _candidateBuffer.clear();
+    }
+    await _createPeerConnection();
+    debugPrint('[WebRTC] Starting call with $remotePeerId as ${_signaling.localRole.name}');
+
+    final bootstrapInit = RTCDataChannelInit();
+    _bootstrapDataChannel =
+        await _pc!.createDataChannel('role-bootstrap', bootstrapInit);
+    final offer = await _pc!.createOffer(_dataOnlyOfferConstraints);
+    await _pc!.setLocalDescription(offer);
+    _signaling.sendOffer({'sdp': offer.sdp, 'type': offer.type});
+  }
+
   void _routeDataChannel(RTCDataChannel channel) {
     final label = channel.label ?? '';
 
@@ -115,6 +162,23 @@ class WebRtcService extends ChangeNotifier {
     debugPrint('[WebRTC] Answer sent');
   }
 
+  Future<void> _handleAnswer(Map<String, dynamic> answer) async {
+    if (_pc == null) return;
+
+    await _pc!.setRemoteDescription(
+      RTCSessionDescription(answer['sdp'] as String, answer['type'] as String),
+    );
+    _remoteDescriptionSet = true;
+
+    for (final c in _candidateBuffer) {
+      await _pc!.addCandidate(c);
+    }
+    _candidateBuffer.clear();
+    await _bootstrapDataChannel?.close();
+    _bootstrapDataChannel = null;
+    debugPrint('[WebRTC] Remote answer applied');
+  }
+
   Future<void> _handleCandidate(Map<String, dynamic> payload) async {
     final candidate = RTCIceCandidate(
       payload['candidate'] as String?,
@@ -136,9 +200,32 @@ class WebRtcService extends ChangeNotifier {
         final payload = msg['payload'] as Map<String, dynamic>;
         _handleOffer(payload);
         break;
+      case 'answer':
+        final payload = msg['payload'] as Map<String, dynamic>;
+        _handleAnswer(payload);
+        break;
       case 'candidate':
         final payload = msg['payload'] as Map<String, dynamic>;
         _handleCandidate(payload);
+        break;
+      case 'joined':
+      case 'peer-joined':
+        final remotePeerId = msg['peerId'] as String?;
+        if (remotePeerId == null) break;
+        final remoteRole = _signaling.remoteRole ?? SignalingRole.auto;
+        final shouldInitiate = _shouldInitiateConnection(
+          _signaling.localRole,
+          const String.fromEnvironment('DEMO_PEER_ID', defaultValue: 'flutter-b'),
+          remoteRole,
+          remotePeerId,
+        );
+        debugPrint(
+          '[WebRTC] role-decision local=${_signaling.localRole.name} remote=${remoteRole.name} '
+          'peer=$remotePeerId initiate=$shouldInitiate',
+        );
+        if (shouldInitiate) {
+          _startCall(remotePeerId);
+        }
         break;
       case 'peer-left':
         // Only close if the WebRTC connection is not yet established AND
@@ -154,6 +241,8 @@ class WebRtcService extends ChangeNotifier {
   }
 
   void close() {
+    _bootstrapDataChannel?.close();
+    _bootstrapDataChannel = null;
     _pc?.close();
     _pc = null;
     _remoteDescriptionSet = false;

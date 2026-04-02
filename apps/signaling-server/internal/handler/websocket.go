@@ -20,6 +20,7 @@ type Message struct {
 	Room    string          `json:"room,omitempty"`
 	ID      string          `json:"id,omitempty"`
 	PeerID  string          `json:"peerId,omitempty"`
+	Role    string          `json:"role,omitempty"`
 	Payload json.RawMessage `json:"payload,omitempty"`
 }
 
@@ -96,26 +97,28 @@ func (h *Handler) ServeWS(w http.ResponseWriter, r *http.Request) {
 			roomName = msg.Room
 			rm = h.manager.GetOrCreate(roomName)
 
-			existingID, ok := rm.Join(peerID, send)
+			existingPeer, ok := rm.Join(peerID, msg.Role, send)
 			if !ok {
 				sendMsg(send, Message{Type: "error", Payload: json.RawMessage(`"room full"`)})
 				continue
 			}
 
 			// Confirm join to the new peer
-			sendMsg(send, Message{
-				Type:   "joined",
-				PeerID: existingID,
-			})
-
-			// Notify existing peer
-			if existingID != "" {
-				if other, ok := rm.Peer(existingID); ok {
+			if existingPeer != nil {
+				sendMsg(send, Message{
+					Type:   "joined",
+					PeerID: existingPeer.ID,
+					Role:   existingPeer.Role,
+				})
+				if other, ok := rm.Peer(existingPeer.ID); ok {
 					sendMsg(other.Send, Message{
 						Type:   "peer-joined",
 						PeerID: peerID,
+						Role:   msg.Role,
 					})
 				}
+			} else {
+				sendMsg(send, Message{Type: "joined"})
 			}
 
 		case "offer", "answer", "candidate":
@@ -126,6 +129,7 @@ func (h *Handler) ServeWS(w http.ResponseWriter, r *http.Request) {
 			if other, ok := rm.Other(peerID); ok {
 				relay := Message{
 					Type:    msg.Type,
+					PeerID:  peerID,
 					Payload: msg.Payload,
 				}
 				sendMsg(other.Send, relay)

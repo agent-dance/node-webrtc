@@ -109,7 +109,9 @@ class _ConnectionBar extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'WebRTC: ${connState.name}  •  Signaling: ${signaling.state.name}',
+              'WebRTC: ${connState.name}  •  Signaling: ${signaling.state.name}'
+              '  •  Role: ${signaling.localRole.name}'
+              '${signaling.remoteRole != null ? ' → ${signaling.remoteRole!.name}' : ''}',
               style: const TextStyle(fontSize: 13),
             ),
           ),

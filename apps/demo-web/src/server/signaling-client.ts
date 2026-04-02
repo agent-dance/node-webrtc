@@ -1,5 +1,5 @@
 import WebSocket from 'ws';
-import type { SignalingMessage } from '../scenarios/types.js';
+import type { SignalingMessage, SignalingRole } from '../scenarios/types.js';
 
 type MessageHandler = (msg: SignalingMessage) => void;
 
@@ -12,6 +12,7 @@ export class SignalingClient {
     private readonly url: string,
     private readonly roomId: string,
     private readonly peerId: string,
+    private readonly role: SignalingRole,
   ) {}
 
   connect(): void {
@@ -20,7 +21,12 @@ export class SignalingClient {
 
     this.ws.on('open', () => {
       console.log('[Signaling] Connected');
-      this.send({ type: 'join', room: this.roomId, id: this.peerId });
+      this.send({
+        type: 'join',
+        room: this.roomId,
+        id: this.peerId,
+        role: this.role,
+      });
     });
 
     this.ws.on('message', (data: WebSocket.RawData) => {

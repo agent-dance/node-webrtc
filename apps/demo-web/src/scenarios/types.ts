@@ -10,11 +10,14 @@ export type SignalingMessageType =
   | 'leave'
   | 'error';
 
+export type SignalingRole = 'offerer' | 'answerer' | 'auto';
+
 export interface SignalingMessage {
   type: SignalingMessageType;
   room?: string;
   id?: string;
   peerId?: string;
+  role?: SignalingRole;
   payload?: unknown;
 }
 

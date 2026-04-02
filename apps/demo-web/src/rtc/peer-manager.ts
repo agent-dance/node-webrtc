@@ -37,39 +37,9 @@ export class PeerManager {
     private readonly signalingClient: SignalingClient,
   ) {}
 
-  private getScenario1Options(peerId: string): Scenario1RuntimeOptions {
-    if (process.platform === 'win32' && peerId === 'flutter-b') {
-      return {
-        chunkSize: 64 * 1024,
-        descriptorMode: true,
-        startDelayMs: 500,
-        maxBuffered: 64 * 1024,
-        burstChunks: 4,
-        retryMs: 1,
-        sequential: true,
-      };
-    }
-    return {};
-  }
-
-  private getScenario2Options(peerId: string): Scenario2RuntimeOptions {
-    if (process.platform === 'win32' && peerId === 'flutter-b') {
-      return {
-        chunkSize: 256 * 1024,
-        descriptorMode: true,
-        startDelayMs: 500,
-        burstChunks: 8,
-        retryMs: 0,
-        highWatermark: 256 * 1024,
-        lowWatermark: 128 * 1024,
-      };
-    }
-    return {};
-  }
-
-  /** Called when peer-joined is received (Node.js is always Caller) */
-  async startCall(peerId: string): Promise<void> {
-    console.log(`[PeerManager] Starting call with peer: ${peerId}`);
+  private createPeerConnection(peerId: string): RTCPeerConnection {
+    this.close();
+    this.candidateBuffer = new CandidateBuffer();
     this.state.update({ connectionState: 'connecting', peerId });
 
     // Local loopback demo — no STUN needed, host candidates are sufficient
@@ -81,7 +51,6 @@ export class PeerManager {
       `[PeerManager] Enabled scenarios: ${[...enabledScenarios].join(', ') || '(none)'}`,
     );
 
-    // Register all scenario channels BEFORE createOffer
     if (enabledScenarios.has('1')) {
       registerScenario1Channels(pc, this.state, this.getScenario1Options(peerId));
     }
@@ -114,6 +83,44 @@ export class PeerManager {
       console.log(`[PeerManager] iceConnectionState: ${pc.iceConnectionState}`);
     });
 
+    return pc;
+  }
+
+  private getScenario1Options(peerId: string): Scenario1RuntimeOptions {
+    if (process.platform === 'win32' && peerId === 'flutter-b') {
+      return {
+        chunkSize: 64 * 1024,
+        descriptorMode: true,
+        startDelayMs: 500,
+        maxBuffered: 64 * 1024,
+        burstChunks: 4,
+        retryMs: 1,
+        sequential: true,
+      };
+    }
+    return {};
+  }
+
+  private getScenario2Options(peerId: string): Scenario2RuntimeOptions {
+    if (process.platform === 'win32' && peerId === 'flutter-b') {
+      return {
+        chunkSize: 256 * 1024,
+        descriptorMode: true,
+        startDelayMs: 500,
+        burstChunks: 8,
+        retryMs: 0,
+        highWatermark: 256 * 1024,
+        lowWatermark: 128 * 1024,
+      };
+    }
+    return {};
+  }
+
+  /** Initiate the WebRTC session from the local peer. */
+  async startCall(peerId: string): Promise<void> {
+    console.log(`[PeerManager] Starting call with peer: ${peerId}`);
+    const pc = this.createPeerConnection(peerId);
+
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
     this.signalingClient.send({ type: 'offer', payload: offer });
@@ -130,10 +137,19 @@ export class PeerManager {
     await this.candidateBuffer.flush((c) => this.pc!.addIceCandidate(c));
   }
 
-  async handleOffer(payload: unknown): Promise<void> {
-    // Node.js is always the caller; we don't handle incoming offers
-    console.warn('[PeerManager] Received offer but Node.js is caller – ignoring');
-    void payload;
+  async handleOffer(payload: unknown, peerId: string): Promise<void> {
+    console.log(`[PeerManager] Handling remote offer from: ${peerId}`);
+    const pc = this.createPeerConnection(peerId);
+    const desc = payload as { type: 'offer'; sdp: string };
+    await pc.setRemoteDescription(desc);
+    console.log('[PeerManager] Remote description set (offer)');
+
+    await this.candidateBuffer.flush((c) => pc.addIceCandidate(c));
+
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    this.signalingClient.send({ type: 'answer', payload: answer });
+    console.log('[PeerManager] Answer sent');
   }
 
   handleCandidate(payload: unknown): void {

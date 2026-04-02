@@ -7,6 +7,7 @@ import (
 // Peer represents a connected client in a room
 type Peer struct {
 	ID   string
+	Role string
 	Send chan []byte
 }
 
@@ -23,24 +24,23 @@ func NewRoom() *Room {
 	}
 }
 
-// Join adds a peer to the room. Returns (existingPeerID, ok).
-// ok=false means the room is full.
-func (r *Room) Join(id string, send chan []byte) (string, bool) {
+// Join adds a peer to the room. Returns the existing peer (if any) and ok=false
+// when the room is already full.
+func (r *Room) Join(id string, role string, send chan []byte) (*Peer, bool) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	if len(r.peers) >= 2 {
-		return "", false
+		return nil, false
 	}
 
-	// Find existing peer before adding
-	var existingID string
-	for pid := range r.peers {
-		existingID = pid
+	var existing *Peer
+	for _, peer := range r.peers {
+		existing = peer
 	}
 
-	r.peers[id] = &Peer{ID: id, Send: send}
-	return existingID, true
+	r.peers[id] = &Peer{ID: id, Role: role, Send: send}
+	return existing, true
 }
 
 // Leave removes a peer and returns the remaining peer ID (empty if none).

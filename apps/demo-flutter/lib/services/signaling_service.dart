@@ -4,22 +4,45 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
 
 enum SignalingState { disconnected, connecting, connected }
+enum SignalingRole { offerer, answerer, auto }
 
 typedef MessageHandler = void Function(Map<String, dynamic> msg);
 
+SignalingRole _parseSignalingRole(String? raw, SignalingRole fallback) {
+  switch (raw) {
+    case 'offerer':
+      return SignalingRole.offerer;
+    case 'answerer':
+      return SignalingRole.answerer;
+    case 'auto':
+      return SignalingRole.auto;
+    default:
+      return fallback;
+  }
+}
+
+String _signalingRoleWire(SignalingRole role) => role.name;
+
 class SignalingService extends ChangeNotifier {
   static const _signalingUrl = 'ws://localhost:8080/ws';
-  static const _roomId = 'demo';
-  static const _peerId = 'flutter-b';
+  static const _roomId = String.fromEnvironment('DEMO_ROOM_ID', defaultValue: 'demo');
+  static const _peerId = String.fromEnvironment('DEMO_PEER_ID', defaultValue: 'flutter-b');
 
   WebSocketChannel? _channel;
   SignalingState _state = SignalingState.disconnected;
   String? _remotePeerId;
+  SignalingRole? _remoteRole;
 
   final List<MessageHandler> _handlers = [];
+  final SignalingRole _localRole = _parseSignalingRole(
+    const String.fromEnvironment('DEMO_SIGNALING_ROLE', defaultValue: 'answerer'),
+    SignalingRole.answerer,
+  );
 
   SignalingState get state => _state;
   String? get remotePeerId => _remotePeerId;
+  SignalingRole? get remoteRole => _remoteRole;
+  SignalingRole get localRole => _localRole;
 
   void connect() {
     if (_state != SignalingState.disconnected) return;
@@ -31,7 +54,12 @@ class SignalingService extends ChangeNotifier {
     notifyListeners();
 
     // Join room
-    _send({'type': 'join', 'room': _roomId, 'id': _peerId});
+    _send({
+      'type': 'join',
+      'room': _roomId,
+      'id': _peerId,
+      'role': _signalingRoleWire(_localRole),
+    });
 
     _channel!.stream.listen(
       (data) {
@@ -56,6 +84,7 @@ class SignalingService extends ChangeNotifier {
     _channel?.sink.close();
     _state = SignalingState.disconnected;
     _remotePeerId = null;
+    _remoteRole = null;
     notifyListeners();
   }
 
@@ -88,12 +117,15 @@ class SignalingService extends ChangeNotifier {
 
     if (type == 'joined') {
       _remotePeerId = msg['peerId'] as String?;
+      _remoteRole = _parseSignalingRole(msg['role'] as String?, SignalingRole.auto);
       notifyListeners();
     } else if (type == 'peer-joined') {
       _remotePeerId = msg['peerId'] as String?;
+      _remoteRole = _parseSignalingRole(msg['role'] as String?, SignalingRole.auto);
       notifyListeners();
     } else if (type == 'peer-left') {
       _remotePeerId = null;
+      _remoteRole = null;
       notifyListeners();
     }
 
